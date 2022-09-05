@@ -1,0 +1,49 @@
+{
+  "name": "ui",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/ui.umd.cjs",
+  "module": "./dist/ui.js",
+  "exports": {
+    ".": {
+      "import": "./dist/ui.js",
+      "require": "./dist/ui.umd.cjs"
+    }
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit --allowJs && vite build",
+    "preview": "vite preview",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook",
+    "prepare": "yarn build"
+  },
+  "dependencies": {
+    "@headlessui/vue": "^1.6.7",
+    "@heroicons/vue": "^2.0.10",
+    "vue": "^3.2.37"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.18.10",
+    "@storybook/addon-actions": "^6.5.10",
+    "@storybook/addon-essentials": "^6.5.10",
+    "@storybook/addon-interactions": "^6.5.10",
+    "@storybook/addon-links": "^6.5.10",
+    "@storybook/builder-vite": "^0.2.2",
+    "@storybook/testing-library": "^0.0.13",
+    "@storybook/vue3": "^6.5.10",
+    "@vitejs/plugin-vue": "^3.0.3",
+    "babel-loader": "^8.2.5",
+    "sass": "^1.54.4",
+    "typescript": "^4.6.4",
+    "vite": "^3.0.7",
+    "vite-plugin-windicss": "^1.8.7",
+    "vue-loader": "^17.0.0",
+    "vue-tsc": "^0.39.5",
+    "windicss": "^3.5.6"
+  }
+}
