@@ -6,6 +6,7 @@
       :name="name"
       :placeholder="placeholder"
       :required="required"
+      :rows="rows"
       :value="modelValue"
       @input="onInput"
     />
@@ -42,6 +43,10 @@ const props = defineProps({
     type: Boolean,
     required: false,
   },
+  rows: {
+    type: [String, Number],
+    default: 1
+  }
 })
 
 const root = ref()
