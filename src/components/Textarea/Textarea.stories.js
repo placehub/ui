@@ -27,7 +27,7 @@ const Template = (args) => ({
     return { args };
   },
   template: `
-    <Textarea />
+    <Textarea model-value="I want to use onMounted to initiate third-party library. To do that I need the component element as its context. In Vue 2 I would get it with this.$el but not sure how to do it with composition functions. setup has two arguments and none of them contains the element." />
   `,
 });
 

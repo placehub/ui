@@ -14,7 +14,7 @@
 
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 
 const emit = defineEmits(['update:modelValue'])
 
@@ -45,6 +45,8 @@ const props = defineProps({
 })
 
 const root = ref()
+
+onMounted(() => root.value.dataset.replicatedText = props.modelValue)
 
 const onInput = (event) => {
  emit('update:modelValue', root.value.dataset.replicatedText = event.target.value)
