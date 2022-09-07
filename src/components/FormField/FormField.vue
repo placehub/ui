@@ -1,7 +1,7 @@
 <template>
   <Field :name="name" :rules="rules" v-slot="{ errorMessage }" as="div" ref="field">
-    <label class="font-semibold text-sm">{{ label }}<span v-if="required" class="text-red ml-1">*</span></label>
-    <div class="mt-1">
+    <label v-if="label" class="font-semibold text-sm mb-1">{{ label }}<span v-if="required" class="text-red ml-1">*</span></label>
+    <div>
       <slot :hasError="errorMessage !== undefined" />
     </div>
     <p v-if="errorMessage" class="mt-1 text-red font-semibold text-xs">{{ errorMessage }}</p>
@@ -19,7 +19,6 @@ const props = defineProps({
   },
   label: {
     type: String,
-    required: true,
   },
   required: {
     type: Boolean
