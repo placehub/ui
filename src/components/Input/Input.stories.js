@@ -1,9 +1,9 @@
 import { SearchIcon } from '@heroicons/vue/solid'
-import VInput from './VInput.vue';
+import Input from './Input.vue';
 
 export default {
-  title: 'VInput',
-  component: VInput,
+  title: 'Input',
+  component: Input,
   argTypes: {
     size: {
       control: { type: 'radio' },
@@ -22,7 +22,7 @@ export default {
 
 const Template = (args) => ({
   components: {
-    VInput,
+    Input,
     SearchIcon
   },
   setup() {

@@ -24,7 +24,7 @@
 import { computed, useSlots } from 'vue';
 
 export default {
-  name: 'VInput',
+  name: 'Input',
   emits: ['update:modelValue'],
   props: {
     modelValue: {

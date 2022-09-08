@@ -25,7 +25,7 @@
 import { computed, useSlots } from 'vue';
 
 export default {
-  name: 'VInput',
+  name: 'Input',
   emits: ['click-prepend', 'click-append', 'update:modelValue'],
   props: {
     disabled: {
