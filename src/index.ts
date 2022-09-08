@@ -1,6 +1,6 @@
 import 'virtual:windi.css'
 
-export { default as VButton } from './components/VButton/VButton.vue'
+export { default as Button } from './components/Button/Button.vue'
 export { default as VCheckbox } from './components/VCheckbox/VCheckbox.vue'
 export { default as FormField } from './components/FormField/FormField.vue'
 export { default as VInput } from './components/VInput/VInput.vue'

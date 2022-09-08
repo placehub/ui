@@ -1,6 +1,6 @@
 import FormField from './FormField.vue';
 import VInput from '../VInput/VInput.vue'
-import VButton from '../VButton/VButton.vue';
+import Button from '../Button/Button.vue';
 import { useForm } from 'vee-validate';
 
 // More on default export: https://storybook.js.org/docs/vue/writing-stories/introduction#default-export
@@ -27,7 +27,7 @@ export default {
 // More on component templates: https://storybook.js.org/docs/vue/writing-stories/introduction#using-args
 const Template = (args) => ({
   // Components used in your story `template` are defined in the `components` object
-  components: { FormField, VButton, VInput },
+  components: { FormField, Button, VInput },
   // The story's `args` need to be mapped into the template through the `setup()` method
   setup() {
     const { handleSubmit } = useForm()
@@ -47,7 +47,7 @@ const Template = (args) => ({
         <VInput placeholder="Введите заголовок" name="title" :has-error="hasError" />
       </FormField>
     
-      <VButton type="submit">Отправить</VButton>
+      <Button type="submit">Отправить</Button>
     </form>
   `,
 });

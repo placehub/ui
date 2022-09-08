@@ -15,7 +15,7 @@
 import VLoader from '../VLoader/VLoader.vue';
 
 export default {
-  name: 'VButton',
+  name: 'Button',
   components: {
     VLoader
   },
@@ -54,14 +54,14 @@ export default {
   computed: {
     classes() {
       const variants = {
-        primary:    'text-white bg-primary enabled:hover:bg-primary-dark focus:ring-primary-light focus:ring-4',
-        secondary:  'text-black border border-gray-lightest enabled:hover:bg-gray-lightest',
+        primary:    'text-white bg-violet-500 enabled:hover:bg-violet-600 focus:ring-violet-400 focus:ring-4',
+        secondary:  'text-purple-500 bg-violet-50 border border-violet-200 focus:ring-violet-100 focus:ring-4',
         danger:     'text-white bg-red enabled:hover:bg-red-dark focus:ring-red-light focus:ring-4',
         success:    'text-white bg-green enabled:hover:bg-green-dark focus:ring-green-light focus:ring-4',
       };
 
       return {
-        'relative font-semibold rounded-lg text-sm px-5 py-2.5 focus:outline-none disabled:opacity-75 transition duration-100 ease-in-out"': true,
+        'relative font-medium rounded-md text-sm px-5 py-2 h-10 focus:outline-none disabled:opacity-75 transition duration-100 ease-in-out"': true,
         [variants[this.variant]]: true,
       }
     },

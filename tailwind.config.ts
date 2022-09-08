@@ -1,5 +1,7 @@
 import { defineConfig } from 'windicss/helpers'
 
+import form from './src/tailwindcss/shortcuts/form'
+
 /**
  * https://maketintsandshades.com
  *
@@ -30,5 +32,9 @@ export default defineConfig({
         'gray-lightest':  '#eceef0'
       },
     },
+  },
+
+  shortcuts: {
+    ...form
   },
 })
