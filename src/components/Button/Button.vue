@@ -54,8 +54,8 @@ export default {
   computed: {
     classes() {
       const variants = {
-        primary:    'text-white bg-violet-500 enabled:hover:bg-violet-600 focus:ring-violet-400 focus:ring-4',
-        secondary:  'text-purple-500 bg-violet-50 border border-violet-200 focus:ring-violet-100 focus:ring-4',
+        primary:    'text-white bg-indigo-500 enabled:hover:bg-indigo-600 focus:ring-indigo-400 focus:ring-4',
+        secondary:  'text-indigo-400 enabled:hover:bg-indigo-50 border border-indigo-200 focus:ring-indigo-100 focus:ring-4',
         danger:     'text-white bg-red enabled:hover:bg-red-dark focus:ring-red-light focus:ring-4',
         success:    'text-white bg-green enabled:hover:bg-green-dark focus:ring-green-light focus:ring-4',
       };
