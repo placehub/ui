@@ -63,7 +63,7 @@ const onInput = (event) => {
   position: relative;
 
   textarea {
-    @apply overflow-hidden resize-none border border-gray-light focus:ring-primary-light focus:border-primary w-full rounded-lg text-sm p-2 focus:outline-none focus:ring-4 disabled:opacity-75 transition duration-100 ease-in-out;
+    @apply overflow-hidden resize-none border border-gray-light focus:ring-indigo-400 focus:border-indigo-500 w-full rounded-lg text-sm p-2 focus:outline-none focus:ring-4 disabled:opacity-75 transition duration-100 ease-in-out;
   }
 }
 

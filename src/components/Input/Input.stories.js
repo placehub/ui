@@ -1,4 +1,4 @@
-import { SearchIcon } from '@heroicons/vue/solid'
+import { ScaleIcon } from '@heroicons/vue/24/solid'
 import Input from './Input.vue';
 
 export default {
@@ -23,20 +23,20 @@ export default {
 const Template = (args) => ({
   components: {
     Input,
-    SearchIcon
+    ScaleIcon
   },
   setup() {
     return { args };
   },
   template: `
-    <v-input maxlength="5" v-bind="args" placeholder="Lorem ipsum dolor sit amet, consectetur adipisicing elit. At cumque doloremque ea, harum iusto labore, minus nobis non odit optio perspiciatis quos temporibus vel voluptatum?">
+    <Input maxlength="5" v-bind="args" placeholder="Lorem ipsum dolor sit amet, consectetur adipisicing elit. At cumque doloremque ea, harum iusto labore, minus nobis non odit optio perspiciatis quos temporibus vel voluptatum?">
       <template v-if="args.prepend" v-slot:prepend>
-        <search-icon class="w-5 h-5 text-gray-400" />
+        <ScaleIcon class="w-5 h-5 text-gray-400" />
       </template>
       <template v-if="args.append" v-slot:append>
-        <search-icon class="w-5 h-5 text-gray-400" />
+        <ScaleIcon class="w-5 h-5 text-gray-400" />
       </template>
-    </v-input>
+    </Input>
   `,
 });
 
