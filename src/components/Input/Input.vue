@@ -71,7 +71,7 @@ export default {
       hasAppendSlot,
       classes: computed(() => {
         const variants = {
-          default:  'border border-gray-light focus:ring-indigo-400 focus:border-indigo-500',
+          default:  'border border-indigo-100 focus:ring-indigo-100 focus:border-indigo-200',
           danger: 'border border-red focus:ring-red-light',
           success: 'border border-green focus:ring-green-light',
         };
