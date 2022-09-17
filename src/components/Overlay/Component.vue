@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { getCurrentInstance, computed } from 'vue'
-const { $overlay } = getCurrentInstance()?.appContext.config.globalProperties;
+const $overlay = getCurrentInstance()?.appContext.config.globalProperties?.$overlay;
 const count = computed(() => $overlay.stack.length)
 </script>
 
