@@ -9,6 +9,11 @@ export { default as VLoader } from './components/VLoader/VLoader.vue'
 export { default as VRadioGroup } from './components/VRadioGroup/VRadioGroup.vue'
 
 export {
+  Overlay,
+  OverlayPlugin,
+} from './components/Overlay'
+
+export {
   RadioGroup,
   RadioGroupLabel,
   RadioGroupOption,
