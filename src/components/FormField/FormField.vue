@@ -2,7 +2,6 @@
   <Field :name="name" :rules="rules" v-slot="{ errorMessage }" as="div" ref="field">
     <label v-if="label" :for="name" class="font-semibold text-sm mb-1">{{ label }}<span v-if="required" class="text-red ml-1">*</span></label>
     <div>
-      {{ errorMessage }}asdasd
       <slot :hasError="errorMessage !== undefined" />
     </div>
     <p v-if="errorMessage" class="mt-1 text-red font-semibold text-xs">{{ errorMessage }}</p>
