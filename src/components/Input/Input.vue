@@ -10,6 +10,7 @@
       :maxlength="maxlength"
       :type="type"
       :value="modelValue"
+      :id="id"
       @input="$emit('update:modelValue', $event.target.value)"
       :placeholder="placeholder"
       style="max-height: 40px"
@@ -33,6 +34,9 @@ export default {
       default: false,
     },
     modelValue: {
+      type: String
+    },
+    id: {
       type: String
     },
     maxlength: {
