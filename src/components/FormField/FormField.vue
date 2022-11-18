@@ -1,5 +1,5 @@
 <template>
-  <Field :name="name" :rules="rules" v-slot="{ errorMessage }" as="div" ref="field">
+  <Field :name="name" :rules="rules" v-slot="{ errorMessage }" :has-error="errorMessage !== undefined" as="div" ref="field">
     <label v-if="label" :for="name" class="font-semibold text-sm mb-1">{{ label }}<span v-if="required" class="text-red ml-1">*</span></label>
     <div>
       <slot />
