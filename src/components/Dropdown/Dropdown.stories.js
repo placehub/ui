@@ -1,6 +1,6 @@
 import Dropdown from './Dropdown.vue'
 import DropdownItem from './DropdownItem.vue'
-import VButton from '../VButton/VButton.vue'
+import Button from '../Button/Button.vue'
 import { ChevronDownIcon } from '@heroicons/vue/outline'
 
 export default {
@@ -13,18 +13,18 @@ const Template = (args) => ({
     Dropdown,
     DropdownItem,
     ChevronDownIcon,
-    VButton
+    Button
   },
   setup() {
     return { args }
   },
   template: `<Dropdown>
-  <VButton>
+  <Button>
     Нажми
     <template #append>
       <ChevronDownIcon class="w-4 h-4 text-white" />
     </template>
-  </VButton>
+  </Button>
   <template v-slot:popper="{ hide }">
     <DropdownItem @click="hide" to="/users">Редактировать</DropdownItem>
     <DropdownItem to="/users">Пожаловаться</DropdownItem>

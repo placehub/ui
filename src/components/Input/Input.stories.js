@@ -45,9 +45,9 @@ Default.args = {
   variant:  'default',
 };
 
-export const danger = Template.bind({});
-danger.args = {
-  variant:  'danger',
+export const error = Template.bind({});
+error.args = {
+  variant:  'error',
 };
 
 export const success = Template.bind({});
