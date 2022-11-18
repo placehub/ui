@@ -1,5 +1,6 @@
 import { ScaleIcon } from '@heroicons/vue/24/solid'
-import Input from './Input.vue';
+import Input from './Input.vue'
+import { ref } from 'vue'
 
 export default {
   title: 'Input',
@@ -26,10 +27,12 @@ const Template = (args) => ({
     ScaleIcon
   },
   setup() {
-    return { args };
+    const err = ref(false)
+    return { args, err };
   },
   template: `
-    <Input maxlength="5" v-bind="args" placeholder="Lorem ipsum dolor sit amet, consectetur adipisicing elit. At cumque doloremque ea, harum iusto labore, minus nobis non odit optio perspiciatis quos temporibus vel voluptatum?">
+    <button @click="err = !err">{{ err }}</button>
+    <Input :variant="err ? 'error' : undefined" maxlength="5" v-bind="args" placeholder="Lorem ipsum dolor sit amet, consectetur adipisicing elit. At cumque doloremque ea, harum iusto labore, minus nobis non odit optio perspiciatis quos temporibus vel voluptatum?">
       <template v-if="args.prepend" v-slot:prepend>
         <ScaleIcon class="w-5 h-5 text-gray-400" />
       </template>
