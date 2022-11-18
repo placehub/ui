@@ -44,7 +44,7 @@ const Template = (args) => ({
   template: `
     <form @submit.prevent="onSubmit" class="space-y-4">
       <FormField name="title" label="Заголовок путешествия" v-slot="{ hasError }" required v-bind="args">
-        <Input placeholder="Введите заголовок" name="title" :has-error="hasError" />
+        <Input placeholder="Введите заголовок" name="title" :variant="hasError ?? 'error'" />
       </FormField>
     
       <Button type="submit">Отправить</Button>

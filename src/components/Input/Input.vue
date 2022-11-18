@@ -49,7 +49,7 @@ export default {
       type: String,
       default: 'default',
       validator(type) {
-        return ['default', 'danger', 'success'].includes(type)
+        return ['default', 'success', 'warning', 'error'].includes(type)
       },
     },
     type: {
@@ -58,7 +58,7 @@ export default {
       validator(type) {
         return ['text', 'date', 'email', 'password', 'number'].includes(type)
       },
-    }
+    },
   },
   setup({ variant }) {
     const slots = useSlots()
@@ -76,7 +76,7 @@ export default {
       classes: computed(() => {
         const variants = {
           default:  'border border-indigo-100 focus:ring-indigo-100 focus:border-indigo-200',
-          danger: 'border border-red focus:ring-red-light',
+          error: 'border border-red focus:ring-red-light',
           success: 'border border-green focus:ring-green-light',
         };
 
