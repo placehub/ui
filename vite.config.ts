@@ -16,7 +16,7 @@ export default defineConfig({
     rollupOptions: {
       // make sure to externalize deps that shouldn't be bundled
       // into your library
-      external: ['vue', 'vee-validate', 'nuxt', '@nuxtjs/apollo', '#head', '#build/app.config.mjs'],
+      external: ['vue', 'vee-validate', 'ohmyfetch', 'nuxt/app'],
       output: {
         // Provide global variables to use in the UMD build
         // for externalized deps
