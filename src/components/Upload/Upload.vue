@@ -4,7 +4,7 @@
 
 <script setup>
 import { $fetch } from 'ohmyfetch'
-import { useNuxtApp, useRuntimeConfig } from 'nuxt/app'
+import { useNuxtApp, useRuntimeConfig } from '#app'
 
 const config = useRuntimeConfig();
 
