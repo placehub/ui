@@ -28,6 +28,7 @@
     "@heroicons/vue": "^2.0.10",
     "@vueuse/core": "^9.3.0",
     "axios": "^0.27.2",
+    "nuxt": "^3.0.0",
     "vee-validate": "^4.6.7",
     "vue": "^3.2.37"
   },
