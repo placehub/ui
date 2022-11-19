@@ -7,6 +7,7 @@ export { default as DropdownItem } from './components/Dropdown/DropdownItem.vue'
 export { default as FormField } from './components/FormField/FormField.vue'
 export { default as Input } from './components/Input/Input.vue'
 export { default as Textarea } from './components/Textarea/Textarea.vue'
+export { default as Upload } from './components/Upload/Upload.vue'
 export { default as VLoader } from './components/VLoader/VLoader.vue'
 export { default as VRadioGroup } from './components/VRadioGroup/VRadioGroup.vue'
 
