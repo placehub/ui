@@ -3,13 +3,10 @@
 </template>
 
 <script setup>
-import { $fetch } from 'ohmyfetch'
-import { useNuxtApp, useRuntimeConfig } from 'nuxt/app';
-
-const config = useRuntimeConfig();
+import { gql, useMutation } from '@nuxtjs/apollo/dist'
 
 const emit = defineEmits([
-    'uploaded'
+  'uploaded'
 ])
 
 const props = defineProps({
@@ -54,11 +51,11 @@ const onChange = async (event) => {
 
   formData.set('map', JSON.stringify({
     model_type: ['variables.$model_type'],
-    images: ['variables.images'],
+    images:     ['variables.images'],
   }))
 
   try {
-    const { data: { upload }} = await $fetch(
+    /*const { data: { upload }} = await $fetch(
       config.GRAPHQL_URL,
       {
         body: formData,
@@ -76,9 +73,14 @@ const onChange = async (event) => {
         }
       }
     )
+    */
+    const { mutate } = useMutation(formData)
 
-    emit('uploaded', upload)
+    await mutate()
+
+    // emit('uploaded', upload)
   } catch (error) {
+    console.log(error)
   } finally {
     event.target.value = ''
   }
