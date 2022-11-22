@@ -8,7 +8,7 @@ export default defineConfig({
   plugins: [vue(), WindiCSS()],
   build: {
     lib: {
-      entry: resolve(__dirname, 'src/index.ts'),
+      entry: resolve(__dirname, 'src/index.js'),
       name: 'placehub-ui',
       // the proper extensions will be added
       fileName: 'ui'
@@ -21,8 +21,7 @@ export default defineConfig({
         // Provide global variables to use in the UMD build
         // for externalized deps
         globals: {
-          vue: 'Vue',
-          window: 'window'
+          vue: 'Vue'
         }
       }
     }

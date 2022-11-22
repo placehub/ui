@@ -25,7 +25,7 @@ export default {
     const app = getCurrentInstance()
     const onClick = (event) => {
       emit('click', event)
-      console.log(app.appContext.config.globalProperties.$axios.post('/api'))
+      console.log(app.appContext.config.globalProperties.$fetch)
     }
 
     return {
