@@ -1,6 +1,6 @@
 import 'virtual:windi.css'
 import { app } from '@storybook/vue3'
-import { Ripple } from '../src'
+import { Ripple, AxiosPlugin } from '../src'
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -12,4 +12,5 @@ export const parameters = {
   },
 }
 
+app.use(AxiosPlugin)
 app.directive('ripple', Ripple)
