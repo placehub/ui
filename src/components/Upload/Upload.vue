@@ -3,11 +3,15 @@
 </template>
 
 <script setup>
-import { gql, useMutation } from '@nuxtjs/apollo/dist'
+import { getCurrentInstance  } from 'vue'
+
+const { appContext } = getCurrentInstance()
 
 const emit = defineEmits([
   'uploaded'
 ])
+
+const $fetch = appContext.config.globalProperties.$fetch
 
 const props = defineProps({
   modelType: {
@@ -55,30 +59,8 @@ const onChange = async (event) => {
   }))
 
   try {
-    /*const { data: { upload }} = await $fetch(
-      config.GRAPHQL_URL,
-      {
-        body: formData,
-        headers: {
-          Accept: 'application/json',
-          Authorization: useNuxtApp().$auth.strategy.token.get()
-        },
-        initialCache: false,
-        transform: data => data.data,
-        method: 'POST',
-        async onResponse({ response }) {
-          if (response?._data?.errors) {
-            return new Promise((resolve, reject) => reject(response._data.errors))
-          }
-        }
-      }
-    )
-    */
-    const { mutate } = useMutation(formData)
-
-    await mutate()
-
-    // emit('uploaded', upload)
+    const data = await $fetch(formData)
+    emit('uploaded', data)
   } catch (error) {
     console.log(error)
   } finally {

@@ -13,7 +13,6 @@
 
 <script>
 import VLoader from '../VLoader/VLoader.vue';
-import { getCurrentInstance  } from 'vue'
 
 export default {
   name: 'Button',
@@ -22,10 +21,8 @@ export default {
   },
   emits: ['click'],
   setup(_, { emit }) {
-    const app = getCurrentInstance()
     const onClick = (event) => {
       emit('click', event)
-      console.log(app.appContext.config.globalProperties.$fetch)
     }
 
     return {
