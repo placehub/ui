@@ -7,7 +7,7 @@ export default {
 
       const response = await fetch(options?.baseUrl || '', {
         method: 'POST',
-        // mode: 'same-origin', // no-cors, *cors, same-origin
+        // mode: '*cors', // no-cors, *cors, same-origin
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
         credentials: 'same-origin', // include, *same-origin, omit
 
@@ -17,6 +17,8 @@ export default {
       })
 
       const { data } = await response.json()
+
+      console.log(data)
 
       return data
     }
