@@ -5,19 +5,21 @@ export default {
         ? dataD
         : JSON.stringify(dataD)
 
-      await fetch(options?.baseUrl || '', {
+      const response = await fetch(options?.baseUrl || '', {
         method: 'POST',
         // mode: '*cors', // no-cors, *cors, same-origin
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
         credentials: 'same-origin', // include, *same-origin, omit
-
+        headers: {
+          'Accept':       'application/json',
+          'Content-Type': 'application/json',
+        },
         redirect: 'follow', // manual, *follow, error
         referrerPolicy: 'no-referrer', // no-referrer, *client
         body
       })
-      .then((response) => response.json())
-      .then((response) => response)
-      .catch((error) => console.log(error))
+
+      return await response.json()
     }
   }
 }
