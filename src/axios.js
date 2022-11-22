@@ -2,12 +2,11 @@ import axios from 'axios'
 
 export default {
   install: (app, options) => {
-    if (options.window) {
-      window = options.window
+    app.config.globalProperties.$axios = {}
+    if (process.client) {
+      app.config.globalProperties.$axios = axios.create({
+        baseURL: options?.baseUrl || ''
+      })
     }
-
-    app.config.globalProperties.$axios = axios.create({
-      baseURL: options?.baseUrl || ''
-    })
   }
 }
