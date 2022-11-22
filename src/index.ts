@@ -27,3 +27,6 @@ export { default as Ripple } from './directives/ripple'
 
 // Modules
 export { default as SearchPlace } from './modules/common/places/SearchPlace/SearchPlace.vue'
+
+// Modules
+export { default as AxiosPlugin } from './axios'
