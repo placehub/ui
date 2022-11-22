@@ -1,9 +1,9 @@
 export default {
   install: (app, options) => {
-    app.config.globalProperties.$fetch = async (data = {}) => {
-      const body = data instanceof FormData
-        ? data
-        : JSON.stringify(data)
+    app.config.globalProperties.$fetch = async (dataD = {}) => {
+      const body = dataD instanceof FormData
+        ? dataD
+        : JSON.stringify(dataD)
 
       const response = await fetch(options?.baseUrl || '', {
         method: 'POST',
@@ -16,10 +16,9 @@ export default {
         body
       })
 
-      const k = await response.json()
-      console.log(k)
+      const { data } = await response.json()
 
-      return k
+      return data
     }
   }
 }

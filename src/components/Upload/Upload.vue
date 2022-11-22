@@ -8,7 +8,7 @@ import { getCurrentInstance  } from 'vue'
 const { appContext } = getCurrentInstance()
 
 const emit = defineEmits([
-  'uploaded'
+  'update:modelValue'
 ])
 
 const $fetch = appContext.config.globalProperties.$fetch
@@ -17,6 +17,9 @@ const props = defineProps({
   modelType: {
     type: String,
     required: true,
+  },
+  modelValue: {
+    type: String,
   },
   fields: {
     type: Array,
@@ -60,7 +63,8 @@ const onChange = async (event) => {
 
   try {
     const data = await $fetch(formData)
-    emit('uploaded', data)
+    console.log(data)
+    emit('update:modelValue', data)
   } catch (error) {
     console.log(error)
   } finally {
