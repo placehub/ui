@@ -29,4 +29,4 @@ export { default as Ripple } from './directives/ripple'
 export { default as SearchPlace } from './modules/common/places/SearchPlace/SearchPlace.vue'
 
 // Modules
-// export { default as AxiosPlugin } from './axios.js'
+export { default as AxiosPlugin } from './axios.js'
