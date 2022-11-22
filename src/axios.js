@@ -15,12 +15,9 @@ export default {
         referrerPolicy: 'no-referrer', // no-referrer, *client
         body
       })
-      .then((response) => {
-        return response.json()
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+      .then((response) => response.json())
+      .then((response) => response)
+      .catch((error) => console.log(error))
     }
   }
 }

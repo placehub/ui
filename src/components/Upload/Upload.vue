@@ -63,6 +63,7 @@ const onChange = async (event) => {
 
   try {
     const data = await $fetch(formData)
+    console.log(data)
     emit('update:modelValue', data)
   } catch (error) {
     console.log(error)
