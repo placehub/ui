@@ -26,10 +26,16 @@
     "@floating-ui/dom": "^1.0.2",
     "@headlessui/vue": "^1.6.7",
     "@heroicons/vue": "^2.0.10",
+    "@tiptap/core": "^2.0.0-beta.199",
+    "@tiptap/extension-document": "^2.0.0-beta.199",
+    "@tiptap/extension-paragraph": "^2.0.0-beta.199",
+    "@tiptap/extension-placeholder": "^2.0.0-beta.199",
+    "@tiptap/extension-text": "^2.0.0-beta.199",
+    "@tiptap/vue-3": "^2.0.0-beta.199"
     "@vueuse/core": "^9.3.0",
     "axios": "^0.27.2",
     "vee-validate": "^4.6.7",
-    "vue": "^3.2.37"
+    "vue": "^3.2.37",
   },
   "devDependencies": {
     "@babel/core": "^7.18.10",
