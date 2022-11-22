@@ -62,7 +62,6 @@ const props = defineProps({
 const slots = useSlots()
 const getVariant = ref(props.variant)
 watch(() => props.variant, (newValue) => {
-  console.log(newValue)
   getVariant.value = newValue.value
 })
 

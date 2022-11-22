@@ -5,7 +5,7 @@ export default {
         ? dataD
         : JSON.stringify(dataD)
 
-      const response = await fetch(options?.baseUrl || '', {
+      await fetch(options?.baseUrl || '', {
         method: 'POST',
         // mode: '*cors', // no-cors, *cors, same-origin
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -15,12 +15,12 @@ export default {
         referrerPolicy: 'no-referrer', // no-referrer, *client
         body
       })
-
-      const { data } = await response.json()
-
-      console.log(data)
-
-      return data
+      .then((response) => {
+        return response.json()
+      })
+      .catch((error) => {
+        console.log(error)
+      })
     }
   }
 }
