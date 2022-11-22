@@ -16,7 +16,10 @@ export default {
         body
       })
 
-      return await response.json()
+      const k = await response.json()
+      console.log(k)
+
+      return k
     }
   }
 }
