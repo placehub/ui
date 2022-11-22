@@ -1,4 +1,6 @@
-window.axios = require('axios')
+window.global ||= window
+
+import axios from 'axios'
 
 export default {
   install: (app, options) => {
