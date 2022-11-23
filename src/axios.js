@@ -11,8 +11,8 @@ export default {
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
         credentials: 'same-origin', // include, *same-origin, omit
         headers: {
-          'Accept':       'application/json',
-          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': options.token || ''
         },
         redirect: 'follow', // manual, *follow, error
         referrerPolicy: 'no-referrer', // no-referrer, *client

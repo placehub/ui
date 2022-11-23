@@ -19,11 +19,16 @@ const props = defineProps({
     required: true,
   },
   modelValue: {
-    type: String,
+    type: Array,
+    default: () => []
   },
   fields: {
     type: Array,
     default: () => ['id', 'url', 'user_id']
+  },
+  presets: {
+    type: Array,
+    default: () => []
   }
 })
 
@@ -38,6 +43,12 @@ const onChange = async (event) => {
 
   for (let image of images) {
     formData.append('images[]', image)
+  }
+
+  if (props.presets.length) {
+    const presets = props.presets.join('|')
+
+    props.fields.push(`presets(dimensions: "${presets}")`)
   }
 
   formData.set('operations', JSON.stringify({
@@ -62,13 +73,10 @@ const onChange = async (event) => {
   }))
 
   try {
-    // console.log($fetch(formData))
-    /*$fetch(formData).then((data) => {
-      console.log(data)
-      emit('update:modelValue', data)
-    })*/
+    const { data } = await $fetch(formData)
+
+    emit('update:modelValue', [...props.modelValue, ...data.upload])
   } catch (error) {
-    // console.log(error)
   } finally {
     event.target.value = ''
   }
