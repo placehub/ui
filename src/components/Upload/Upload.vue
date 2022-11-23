@@ -23,7 +23,7 @@ const props = defineProps({
   },
   fields: {
     type: Array,
-    required: true,
+    default: () => ['id', 'url', 'user_id']
   }
 })
 
@@ -68,7 +68,7 @@ const onChange = async (event) => {
       emit('update:modelValue', data)
     })*/
   } catch (error) {
-    console.log(error)
+    // console.log(error)
   } finally {
     event.target.value = ''
   }

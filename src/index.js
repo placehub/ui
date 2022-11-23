@@ -1,6 +1,6 @@
 import 'virtual:windi.css'
 
-export { default as Upload } from './components/Upload/Upload.vue'
+// export { default as Upload } from './components/Upload/Upload.vue'
 export { default as Button } from './components/Button/Button.vue'
 export { default as Checkbox } from './components/VCheckbox/VCheckbox.vue'
 export { default as Dropdown } from './components/Dropdown/Dropdown.vue'
