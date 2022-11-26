@@ -39,8 +39,15 @@ const props = defineProps({
   isArticle: {
     type: Boolean,
     default: false
+  },
+  rawText: {
+    type: Boolean,
+    default: false
   }
 })
+
+const placeholder = ref(props.placeholder)
+const rawText = ref(props.rawText)
 
 const CustomDocument = Document.extend({
   content: 'pluses minuses paragraph+',
@@ -53,7 +60,7 @@ let extensions = [
   Placeholder.configure({
     showOnlyCurrent: false,
     placeholder: () => {
-      return props.placeholder
+      return placeholder.value
     },
   }),
   Text,
@@ -68,7 +75,7 @@ const newEditor = () => {
     content: props.modelValue,
     extensions,
     onUpdate: ({ editor }) => {
-      emit('update:modelValue', editor.getHTML());
+      emit('update:modelValue', rawText.value ? editor.getText() : editor.getHTML());
     },
   })
 }
