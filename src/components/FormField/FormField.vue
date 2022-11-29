@@ -1,8 +1,8 @@
 <template>
   <Field :name="name" :rules="rules" v-slot="{ errorMessage }" as="div">
-    <label v-if="label" :for="name" class="font-semibold text-sm mb-1">{{ label }}<span v-if="required" class="text-red ml-1">*</span></label>
+    <label v-if="label" :for="name.replace('_', '-')" class="font-semibold text-sm mb-1">{{ label }}<span v-if="required" class="text-red ml-1">*</span></label>
     <div>
-      <slot :has-error="errorMessage !== undefined" />
+      <slot :hasError="errorMessage !== undefined" />
     </div>
     <p v-if="errorMessage" class="mt-1 text-red font-semibold text-xs">{{ errorMessage }}</p>
     <p v-if="!!$slots['help'] && !errorMessage" class="mt-1 text-gray-400 font-medium text-xs">
