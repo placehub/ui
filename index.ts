@@ -1,0 +1,1 @@
+export { default as TipTap } from './components/TipTap/TipTap.vue'
