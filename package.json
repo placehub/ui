@@ -18,6 +18,8 @@
     "vue": "^3.2.47"
   },
   "devDependencies": {
-    "nuxt": "^3.3.1"
+    "nuxt": "^3.3.1",
+    "swiper": "^9.1.1",
+    "vuedraggable": "^2.24.3"
   }
 }

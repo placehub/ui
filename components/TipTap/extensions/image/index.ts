@@ -7,7 +7,7 @@ export default Node.create({
 
   group: 'block',
 
-  draggable: true,
+  isolating: true,
 
   addOptions() {
     return {
@@ -17,8 +17,8 @@ export default Node.create({
 
   addAttributes() {
     return {
-      src: {
-        default: null,
+      images: {
+        default: [],
       },
     }
   },
