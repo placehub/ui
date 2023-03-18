@@ -36,14 +36,15 @@
 import 'swiper/css'
 import Document from '@tiptap/extension-document'
 import Heading from '@tiptap/extension-heading'
+import History from '@tiptap/extension-history'
+import Image from './extensions/image'
 import Paragraph from '@tiptap/extension-paragraph'
 import Placeholder from '@tiptap/extension-placeholder'
 import Text from '@tiptap/extension-text'
+import Title from './extensions/title'
 import Typography from '@tiptap/extension-typography'
 import bubbleMenuShouldShow from './bubble-menu-should-show'
 import floatingMenuShouldShow from './floating-menu-should-show'
-import Title from './extensions/title'
-import Image from './extensions/image'
 import { Editor, EditorContent, FloatingMenu, BubbleMenu } from '@tiptap/vue-3'
 import { onBeforeUnmount, ref, shallowRef, onMounted } from 'vue'
 import { onClickOutside } from '@vueuse/core'
@@ -76,6 +77,7 @@ onMounted(() => {
       Heading.configure({
         levels: [2],
       }),
+      History,
       Image,
       Paragraph,
       Placeholder.configure({

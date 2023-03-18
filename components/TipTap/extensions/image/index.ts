@@ -7,7 +7,7 @@ export default Node.create({
 
   group: 'block',
 
-  isolating: true,
+  selectable: true,
 
   addOptions() {
     return {
@@ -35,5 +35,5 @@ export default Node.create({
 
   addNodeView() {
     return VueNodeViewRenderer(Component)
-  }
+  },
 })

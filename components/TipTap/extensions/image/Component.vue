@@ -1,13 +1,12 @@
 <template>
-  <NodeViewWrapper :class="{'image': selected}">
+  <NodeViewWrapper @click="onClick" :class="{'image': selected}">
     <div v-show="! isEdit">
-      <div @click="onUpload">Выбрать фото</div>
-
       <Swiper class="h-[360px]" :space-between="1" :class="[hasImages ? 'cursor-move' : '']">
         <SwiperSlide v-for="image in node.attrs.images" :key="image.id" class="flex justify-center bg-gray-50">
           <img :src="image.url" alt="" class="h-full object-cover" />
         </SwiperSlide>
       </Swiper>
+      <div @click="onUpload">Выбрать фото</div>
     </div>
 <!--    <button type="button" @click="addParagraph">
       <WrapText class="w-4 h-4" />
@@ -34,6 +33,10 @@ const isLoading = shallowRef(false)
 const inputFile = shallowRef()
 
 const hasImages = props.node.attrs.images.length
+
+const onClick = () => {
+  props.editor.commands.setNodeSelection(props.getPos())
+}
 
 const addParagraph = () => {
   props.editor
