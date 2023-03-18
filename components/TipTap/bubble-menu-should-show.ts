@@ -2,7 +2,7 @@ import { isTextSelection } from '@tiptap/core'
 
 export default ({ editor, view, state, from, to }) => {
   const { doc, selection } = state
-  const { empty } = selection
+  const { empty, $anchor } = selection
 
   // Sometime check for `empty` is not enough.
   // Doubleclick an empty paragraph returns a node size of 2.
@@ -16,7 +16,7 @@ export default ({ editor, view, state, from, to }) => {
 
   const hasEditorFocus = view.hasFocus() // || isChildOfMenu
 
-  if (!hasEditorFocus || empty || isEmptyTextBlock || !editor.isEditable || selection.head === 1) {
+  if (!hasEditorFocus || empty || isEmptyTextBlock || !editor.isEditable || $anchor.parent.type.name === 'title') {
     return false
   }
 

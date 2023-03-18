@@ -4,24 +4,24 @@
       v-if="editor"
       :editor="editor"
       :should-show="floatingMenuShouldShow"
-      :tippy-options="{placement: 'left', offset: [0, 4]}"
+      :tippy-options="{placement: 'left', offset: [0, 8]}"
       ref="menu"
       class="relative"
     >
-      <button @click="dropdown = !dropdown" class="flex items-center justify-center plus">
+      <button type="button" @click="dropdown = !dropdown" class="flex items-center justify-center plus">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
       </button>
       <div v-show="dropdown" class="bg-white absolute top-full left-0 -ml-[24px] mt-1 shadow p-2 rounded border">
-        <button @click="editor.chain().focus().toggleHeading({ level: 2 }).run(); dropdown = false" :class="{ 'is-active': editor.isActive('heading', { level: 1 }) }">
+        <button type="button" @click="editor.chain().focus().toggleHeading({ level: 2 }).run(); dropdown = false" :class="{ 'is-active': editor.isActive('heading', { level: 1 }) }">
           Заголовок
         </button>
-        <button @click="editor.chain().focus().toggleParagraph().run(); dropdown = false" :class="{ 'is-active': editor.isActive('paragraph') }">
+        <button type="button" @click="editor.chain().focus().toggleParagraph().run(); dropdown = false" :class="{ 'is-active': editor.isActive('paragraph') }">
           Текст
         </button>
       </div>
     </FloatingMenu>
     <BubbleMenu v-if="editor" :editor="editor" :should-show="bubbleMenuShouldShow" id="bubble-menu">
-      <button @click="editor.chain().focus().toggleHeading({ level: 2 }).run();" :class="{ 'is-active': editor.isActive('heading', { level: 1 }) }">
+      <button type="button" @click="editor.chain().focus().toggleHeading({ level: 2 }).run();" :class="{ 'is-active': editor.isActive('heading', { level: 1 }) }">
         Заголовок
       </button>
     </BubbleMenu>
@@ -38,11 +38,12 @@ import Text from '@tiptap/extension-text'
 import Typography from '@tiptap/extension-typography'
 import bubbleMenuShouldShow from './bubble-menu-should-show'
 import floatingMenuShouldShow from './floating-menu-should-show'
+import Title from './extensions/title'
 import { Editor, EditorContent, FloatingMenu, BubbleMenu } from '@tiptap/vue-3'
 import { onBeforeUnmount, ref, shallowRef, onMounted } from 'vue'
 import { onClickOutside } from '@vueuse/core'
 
-const emits = defineEmits(['update:modelValue'])
+const emits = defineEmits(['update:modelValue', 'update:title'])
 const props = defineProps({
   modelValue: {
     type: Object,
@@ -59,7 +60,7 @@ const editor = shallowRef(null)
 
 onMounted(() => {
   const CustomDocument = Document.extend({
-    content: 'heading block*',
+    content: 'title block*',
   })
 
   editor.value = new Editor({
@@ -67,11 +68,13 @@ onMounted(() => {
     content: '',
     extensions: [
       CustomDocument,
-      Heading,
+      Heading.configure({
+        levels: [2],
+      }),
       Paragraph,
       Placeholder.configure({
         placeholder: ({ node }) => {
-          if (node.type.name === 'heading' && node.attrs.level === 1) {
+          if (node.type.name === 'title' && node.attrs.level === 1) {
             return 'Придумайте заголовок'
           }
 
@@ -80,6 +83,7 @@ onMounted(() => {
         showOnlyCurrent: false
       }),
       Text,
+      Title,
       Typography.configure({
         openDoubleQuote: '«',
         closeDoubleQuote: '»'
@@ -90,16 +94,12 @@ onMounted(() => {
     },
   })
 
-
-  if (props.modelValue?.type === 'doc') {
+  if (props.modelValue && props.modelValue?.type === 'doc') {
     const first = props.modelValue.content[0]
 
-    if (first.type !== 'heading' && first?.attrs?.level !== 1) {
+    if (first.type !== 'title') {
       editor.value.commands.insertContent({
-        type: 'heading',
-        attrs: {
-          level: 1,
-        },
+        type: 'title',
         content: [
           {
             type: 'text',
@@ -108,9 +108,9 @@ onMounted(() => {
         ],
       })
     }
-  }
 
-  editor.value.commands.setContent(props.modelValue)
+    editor.value.commands.setContent(props.modelValue)
+  }
 })
 
 onBeforeUnmount(() => editor.value.destroy)
@@ -118,10 +118,10 @@ onBeforeUnmount(() => editor.value.destroy)
 
 <style lang="scss">
 button.plus  {
-  @apply bg-slate-100 rounded-full w-6 h-6 block;
+  @apply bg-white shadow rounded-full w-6 h-6 block;
 }
 .ProseMirror {
-  @apply outline-none py-4 px-8;
+  @apply outline-none py-4 px-12 prose prose-sm;
 }
 
 .ProseMirror p.is-editor-empty:first-child::before {
