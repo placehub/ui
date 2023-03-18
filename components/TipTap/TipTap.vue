@@ -13,7 +13,7 @@
       </button>
       <div v-show="dropdown" class="bg-white absolute top-full left-0 -ml-[24px] mt-1 shadow p-2 rounded border">
         <button type="button" @click="editor.chain().focus().toggleHeading({ level: 2 }).run(); dropdown = false" :class="{ 'is-active': editor.isActive('heading', { level: 1 }) }">
-          Заголовок
+          Подзаголовок
         </button>
         <button type="button" @click="editor.chain().focus().toggleParagraph().run(); dropdown = false" :class="{ 'is-active': editor.isActive('paragraph') }">
           Текст
@@ -74,7 +74,7 @@ onMounted(() => {
       Paragraph,
       Placeholder.configure({
         placeholder: ({ node }) => {
-          if (node.type.name === 'title' && node.attrs.level === 1) {
+          if (node.type.name === 'title') {
             return 'Придумайте заголовок'
           }
 
