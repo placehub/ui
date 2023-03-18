@@ -14,6 +14,10 @@
     "@tiptap/pm": "^2.0.0-beta.220",
     "@tiptap/vue-3": "^2.0.0-beta.220",
     "@vueuse/core": "10.0.0-beta.0",
+    "lucide-vue-next": "^0.125.0",
     "vue": "^3.2.47"
+  },
+  "devDependencies": {
+    "nuxt": "^3.3.1"
   }
 }

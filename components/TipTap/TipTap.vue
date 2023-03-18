@@ -18,9 +18,12 @@
         <button type="button" @click="editor.chain().focus().toggleParagraph().run(); dropdown = false" :class="{ 'is-active': editor.isActive('paragraph') }">
           Текст
         </button>
+        <button type="button" @click="addImage">
+          addImage
+        </button>
       </div>
     </FloatingMenu>
-    <BubbleMenu v-if="editor" :editor="editor" :should-show="bubbleMenuShouldShow" id="bubble-menu">
+    <BubbleMenu v-if="editor" :editor="editor" :tippy-options="{delay: 500}" :should-show="bubbleMenuShouldShow" id="bubble-menu">
       <button type="button" @click="editor.chain().focus().toggleHeading({ level: 2 }).run();" :class="{ 'is-active': editor.isActive('heading', { level: 1 }) }">
         Заголовок
       </button>
@@ -39,6 +42,7 @@ import Typography from '@tiptap/extension-typography'
 import bubbleMenuShouldShow from './bubble-menu-should-show'
 import floatingMenuShouldShow from './floating-menu-should-show'
 import Title from './extensions/title'
+import Image from './extensions/image'
 import { Editor, EditorContent, FloatingMenu, BubbleMenu } from '@tiptap/vue-3'
 import { onBeforeUnmount, ref, shallowRef, onMounted } from 'vue'
 import { onClickOutside } from '@vueuse/core'
@@ -71,6 +75,7 @@ onMounted(() => {
       Heading.configure({
         levels: [2],
       }),
+      Image,
       Paragraph,
       Placeholder.configure({
         placeholder: ({ node }) => {
@@ -114,6 +119,12 @@ onMounted(() => {
 })
 
 onBeforeUnmount(() => editor.value.destroy)
+
+const addImage = () => {
+  editor.value.commands.insertContent({
+    type: 'image',
+  })
+}
 </script>
 
 <style lang="scss">
