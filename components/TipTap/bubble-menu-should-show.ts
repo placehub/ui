@@ -16,7 +16,18 @@ export default ({ editor, view, state, from, to }) => {
 
   const hasEditorFocus = view.hasFocus() // || isChildOfMenu
 
-  if (!hasEditorFocus || empty || isEmptyTextBlock || !editor.isEditable || $anchor.parent.type.name === 'title' || node?.type?.name === 'image') {
+  if (
+      !hasEditorFocus
+      || empty
+      || isEmptyTextBlock
+      || !editor.isEditable
+      // Не показывает меню в заголовке.
+      || $anchor.parent.type.name === 'title'
+      // Не показывает меню для блока изображений.
+      || node?.type?.name === 'image'
+      // Не показывает меню в подписях для изображений.
+      || $anchor?.parent?.type?.name === 'image'
+  ) {
     return false
   }
 

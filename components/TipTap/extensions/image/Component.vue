@@ -1,11 +1,31 @@
 <template>
-  <NodeViewWrapper @click="onClick" :class="{'image': selected}">
-    <div v-show="! isEdit">
+  <NodeViewWrapper @click="selectNode" :class="{'image': selected}" style="margin: 0 -24px;">
+    <div v-if="! isEdit" class="relative">
       <Swiper class="h-[360px]" :space-between="1" :class="[hasImages ? 'cursor-move' : '']">
         <SwiperSlide v-for="image in node.attrs.images" :key="image.id" class="flex justify-center bg-gray-50">
           <img :src="image.url" alt="" class="h-full object-cover" />
         </SwiperSlide>
       </Swiper>
+      <div v-show="! hasImages" @click="onUpload">Выбрать фото</div>
+      <div v-show="hasImages" @click="$overlay.show(CarouselDialog, {
+        props: {
+          images: node.attrs.images
+        },
+        on: {
+          'update:modelValue': (images) => {
+            updateAttributes({
+              images
+            })
+          }
+        }
+      })" class="absolute top-0 right-0 z-10 p-2 cursor-pointer">
+        <div class="bg-black/50 text-white rounded-full py-1 px-2.5">{{ hasImages > 1 ? 'Редактировать' : 'Создать карусель' }}</div>
+      </div>
+    </div>
+
+    <div v-show="isEdit">
+      <div @click="isEdit = !isEdit">edit</div>
+
       <div @click="onUpload">Выбрать фото</div>
     </div>
 <!--    <button type="button" @click="addParagraph">
@@ -22,19 +42,21 @@
 
 <script setup>
 import { NodeViewWrapper, nodeViewProps } from '@tiptap/vue-3'
-import { WrapText } from 'lucide-vue-next'
 import { Swiper, SwiperSlide } from 'swiper/vue'
-import { shallowRef } from 'vue'
+import { shallowRef, computed } from 'vue'
+import { useNuxtApp } from 'nuxt/app'
+import CarouselDialog from './CarouselDialog.vue'
 
 const props = defineProps(nodeViewProps)
 
 const isEdit = shallowRef(false)
 const isLoading = shallowRef(false)
 const inputFile = shallowRef()
+const { $overlay } = useNuxtApp()
 
-const hasImages = props.node.attrs.images.length
+const hasImages = computed(() => props.node.attrs.images.length)
 
-const onClick = () => {
+const selectNode = () => {
   props.editor.commands.setNodeSelection(props.getPos())
 }
 

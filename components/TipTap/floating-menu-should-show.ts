@@ -10,7 +10,10 @@ export default ({ editor, view, state }) => {
       || !isRootDepth
       || !isEmptyTextBlock
       || !editor.isEditable
+      // Не показывает меню в заголовке.
       || selection.head === 1
+      // Не показывает меню в подписях для изображений.
+      || $anchor?.parent?.type?.name === 'image'
   ) {
     return false
   }

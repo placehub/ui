@@ -85,7 +85,6 @@ onMounted(() => {
           if (node.type.name === 'title') {
             return 'Придумайте заголовок'
           }
-
           return ''
         },
         showOnlyCurrent: false
