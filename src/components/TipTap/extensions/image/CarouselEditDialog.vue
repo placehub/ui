@@ -27,6 +27,7 @@
 <script setup>
 import Draggable from 'vuedraggable'
 import { shallowRef } from 'vue'
+import { Button } from '../../../../index'
 
 const emits = defineEmits(['update:modelValue'])
 
@@ -36,6 +37,5 @@ const props = defineProps({
     default: () => []
   }
 })
-
 const localImages = shallowRef([...props.images])
 </script>

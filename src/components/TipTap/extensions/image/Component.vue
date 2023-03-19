@@ -1,13 +1,12 @@
 <template>
   <NodeViewWrapper @click="selectNode" :class="{'image': selected}" style="margin: 0 -24px;">
-    <div v-if="! isEdit" class="relative">
-      <Swiper class="h-[360px]" :space-between="1" :class="[hasImages ? 'cursor-move' : '']">
-        <SwiperSlide v-for="image in node.attrs.images" :key="image.id" class="flex justify-center bg-gray-50">
-          <img :src="image.url" alt="" class="h-full object-cover" />
-        </SwiperSlide>
-      </Swiper>
+    <div class="relative h-[360px]">
+      <!-- Carousel -->
+      <Carousel v-if="hasImages" :modelValue="node.attrs.images" />
+      <!-- / Carousel -->
+
       <div v-show="! hasImages" @click="onUpload">Выбрать фото</div>
-      <div v-show="hasImages" @click="overlay.show(CarouselDialog, {
+      <div v-show="hasImages" @click="overlay.show(CarouselEditDialog, {
         props: {
           images: node.attrs.images
         },
@@ -19,8 +18,9 @@
             overlay.hide()
           }
         }
-      })" class="absolute top-0 right-0 z-10 p-2 cursor-pointer">
-        <div class="bg-black/50 text-white rounded-full py-1 px-2.5">{{ hasImages > 1 ? 'Редактировать' : 'Создать карусель' }}</div>
+      })" class="absolute top-0 right-0 z-10 p-2 cursor-pointer flex items-center space-x-2">
+        <div class="bg-black/50 text-white rounded-lg py-1 px-2.5">{{ hasImages > 1 ? 'Редактировать' : 'Создать карусель' }}</div>
+        <div class="bg-black/50 text-white rounded-lg py-1 px-2.5">{{ hasImages > 1 ? 'Редактировать' : 'Создать карусель' }}</div>
       </div>
     </div>
 
@@ -43,10 +43,10 @@
 
 <script setup>
 import { NodeViewWrapper, nodeViewProps } from '@tiptap/vue-3'
-import { Swiper, SwiperSlide } from 'swiper/vue'
 import { shallowRef, computed } from 'vue'
 import useOverlay from '../../../Overlay/useOverlay'
-import CarouselDialog from './CarouselDialog.vue'
+import CarouselEditDialog from './CarouselEditDialog.vue'
+import Carousel from './Carousel.vue'
 
 const props = defineProps(nodeViewProps)
 
