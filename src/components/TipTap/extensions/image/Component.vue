@@ -1,45 +1,19 @@
 <template>
-  <NodeViewWrapper @click="selectNode" :class="{'image': selected}" style="margin: 0 -24px;">
-    <div class="relative h-[360px]">
+  <NodeViewWrapper @click="selectNode" :class="{'ring-blue-300 ring-offset-2 ring': selected}" contenteditable="false"
+                   draggable="true"
+                   data-drag-handle>
+    <figure class="relative h-[360px]">
       <!-- Carousel -->
-      <Carousel v-if="hasImages" :modelValue="node.attrs.images" />
+      <Carousel v-if="hasImages" :modelValue="computedImages" />
       <!-- / Carousel -->
 
-      <div v-show="! hasImages" @click="onUpload">Выбрать фото</div>
-      <div v-show="hasImages" @click="overlay.show(CarouselEditDialog, {
-        props: {
-          images: node.attrs.images
-        },
-        on: {
-          'update:modelValue': (images) => {
-            updateAttributes({
-              images
-            })
-            overlay.hide()
-          }
-        }
-      })" class="absolute top-0 right-0 z-10 p-2 cursor-pointer flex items-center space-x-2">
-        <div class="bg-black/50 text-white rounded-lg py-1 px-2.5">{{ hasImages > 1 ? 'Редактировать' : 'Создать карусель' }}</div>
+      <div v-if="!hasImages" @click="onUpload">Выбрать фото</div>
+      <div v-show="hasImages" @click="showCarouselEditDialog" class="absolute top-0 right-0 z-10 p-2 cursor-pointer flex items-center space-x-2">
         <div class="bg-black/50 text-white rounded-lg py-1 px-2.5">{{ hasImages > 1 ? 'Редактировать' : 'Создать карусель' }}</div>
       </div>
-    </div>
-
-    <div v-show="isEdit">
-      <div @click="isEdit = !isEdit">edit</div>
-
-      <div @click="onUpload">Выбрать фото</div>
-    </div>
-<!--    <button type="button" @click="addParagraph">
-      <WrapText class="w-4 h-4" />
-    </button>-->
+    </figure>
   </NodeViewWrapper>
 </template>
-
-<style>
-.image {
-  @apply ring-blue-300 ring-offset-2 ring;
-}
-</style>
 
 <script setup>
 import { NodeViewWrapper, nodeViewProps } from '@tiptap/vue-3'
@@ -48,17 +22,44 @@ import useOverlay from '../../../Overlay/useOverlay'
 import CarouselEditDialog from './CarouselEditDialog.vue'
 import Carousel from './Carousel.vue'
 
+const emits = defineEmits(['uploaded'])
 const props = defineProps(nodeViewProps)
 
-const isEdit = shallowRef(false)
 const isLoading = shallowRef(false)
 const inputFile = shallowRef()
 const overlay = useOverlay()
 
-const hasImages = computed(() => props.node.attrs.images.length)
+const computedImages = computed(() => props.node.attrs.images)
+const hasImages = computed(() => computedImages.value.length)
 
 const selectNode = () => {
   props.editor.commands.setNodeSelection(props.getPos())
+}
+
+const showCarouselEditDialog = () => {
+  overlay.show(CarouselEditDialog, {
+    props: {
+      modelValue: computedImages,
+      isLoading: isLoading
+    },
+    on: {
+      'save': overlay.hide,
+      'update:modelValue': (images) => {
+        props.updateAttributes({
+          images
+        })
+      },
+      detach: (index) => {
+        props.editor.commands.insertContentAt(props.getPos() + 1, {
+          type: 'image',
+          attrs: {
+            images: [computedImages.value[index]]
+          }
+        })
+      },
+      upload: onUpload
+    }
+  })
 }
 
 const addParagraph = () => {
@@ -69,27 +70,14 @@ const addParagraph = () => {
     .run()
 }
 
-const onImageDeleted = (index) => {
-  props.node.attrs.images.splice(index, 1)
-
-  props.updateAttributes({
-    images: props.node.attrs.images
-  })
-}
-
 /*
   Создаем инпут-файл и отправляем изображения на сервер.
  */
 const onUpload = () => {
-  if (isLoading.value) {
-    return
-  }
-
-  isLoading.value = true
-
-  inputFile.value         = document.createElement('input')
-  inputFile.value.accept  = 'image/*'
-  inputFile.value.type    = 'file'
+  inputFile.value          = document.createElement('input')
+  inputFile.value.accept   = 'image/*'
+  inputFile.value.type     = 'file'
+  inputFile.value.multiple = true
   inputFile.value.click()
 
   const handle = async (event) => {
@@ -125,6 +113,12 @@ const onUpload = () => {
     }))
 
     try {
+      if (isLoading.value) {
+        return
+      }
+
+      isLoading.value = true
+
       const { data } = await useQuery({
         query: formData
       })

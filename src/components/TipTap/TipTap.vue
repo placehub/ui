@@ -42,6 +42,7 @@ import Paragraph from '@tiptap/extension-paragraph'
 import Placeholder from '@tiptap/extension-placeholder'
 import Text from '@tiptap/extension-text'
 import Title from './extensions/title'
+import Dropcursor from '@tiptap/extension-dropcursor'
 import Typography from '@tiptap/extension-typography'
 import bubbleMenuShouldShow from './bubble-menu-should-show'
 import floatingMenuShouldShow from './floating-menu-should-show'
@@ -91,6 +92,9 @@ onMounted(() => {
       }),
       Text,
       Title,
+      Dropcursor.configure({
+        width: 2,
+      }),
       Typography.configure({
         openDoubleQuote: '«',
         closeDoubleQuote: '»'

@@ -7,6 +7,8 @@ export default Node.create({
 
   group: 'block',
 
+  draggable: true,
+
   addOptions() {
     return {
       HTMLAttributes: {},
@@ -28,7 +30,7 @@ export default Node.create({
   },
 
   renderHTML({ HTMLAttributes }) {
-    return ['image', mergeAttributes(this.options.HTMLAttributes, HTMLAttributes), 0]
+    return ['image', mergeAttributes(this.options.HTMLAttributes, HTMLAttributes)]
   },
 
   addNodeView() {
