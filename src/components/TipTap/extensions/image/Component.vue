@@ -7,7 +7,7 @@
         </SwiperSlide>
       </Swiper>
       <div v-show="! hasImages" @click="onUpload">Выбрать фото</div>
-      <div v-show="hasImages" @click="$overlay.show(CarouselDialog, {
+      <div v-show="hasImages" @click="overlay.show(CarouselDialog, {
         props: {
           images: node.attrs.images
         },
@@ -16,6 +16,7 @@
             updateAttributes({
               images
             })
+            overlay.hide()
           }
         }
       })" class="absolute top-0 right-0 z-10 p-2 cursor-pointer">
@@ -44,7 +45,7 @@
 import { NodeViewWrapper, nodeViewProps } from '@tiptap/vue-3'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { shallowRef, computed } from 'vue'
-import { useNuxtApp } from 'nuxt/app'
+import useOverlay from '../../../Overlay/useOverlay'
 import CarouselDialog from './CarouselDialog.vue'
 
 const props = defineProps(nodeViewProps)
@@ -52,7 +53,7 @@ const props = defineProps(nodeViewProps)
 const isEdit = shallowRef(false)
 const isLoading = shallowRef(false)
 const inputFile = shallowRef()
-const { $overlay } = useNuxtApp()
+const overlay = useOverlay()
 
 const hasImages = computed(() => props.node.attrs.images.length)
 
