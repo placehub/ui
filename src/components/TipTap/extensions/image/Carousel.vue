@@ -1,17 +1,30 @@
 <template>
   <div class="relative h-full">
-    <div v-show="showPreviousButton" @click="onPrevious" tabindex="0" type="button" class="absolute top-0 left-0 w-1/2 h-full">
-      <ChevronLeft class="w-8 h-8" />
+    <div v-show="showPreviousButton" @click="onPrevious" class="carousel-arrow left-0 pl-2">
+      <div class="carousel-arrow-icon">
+        <ChevronLeft class="w-8 h-8 text-white" />
+      </div>
     </div>
     <div class="flex justify-center h-full">
       <img :src="activeImage.url" @load="isLoading = false" alt="" class="h-full object-cover" />
     </div>
-    <div v-show="showNextButton" @click="onNext" type="button" tabindex="0" class="absolute top-0 right-0 w-1/2 h-full z-10">
-      <ChevronRight class="w-8 h-8 ml-auto" />
+    <div v-show="showNextButton" @click="onNext" class="carousel-arrow right-0 pr-2">
+      <div class="carousel-arrow-icon ml-auto">
+        <ChevronRight class="w-8 h-8 text-white" />
+      </div>
     </div>
     <Loader v-show="isLoading" class="bg-black/25" />
   </div>
 </template>
+
+<style>
+.carousel-arrow {
+  @apply absolute top-0 w-1/2 h-full flex items-center cursor-pointer;
+}
+.carousel-arrow-icon {
+  @apply bg-black/50 p-1 rounded-full;
+}
+</style>
 
 <script setup>
 import { shallowRef, computed, watch } from 'vue'

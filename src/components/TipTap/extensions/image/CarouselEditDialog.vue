@@ -59,6 +59,5 @@ const onDetach = async (index) => {
 const onDelete = (index) => {
   const images = [...props.modelValue]
   images.splice(index, 1)
-  emits('update:modelValue', images)
 }
 </script>

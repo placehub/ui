@@ -49,14 +49,16 @@ import floatingMenuShouldShow from './floating-menu-should-show'
 import { Editor, EditorContent, FloatingMenu, BubbleMenu } from '@tiptap/vue-3'
 import { onBeforeUnmount, ref, shallowRef, onMounted } from 'vue'
 import { onClickOutside } from '@vueuse/core'
+import { nextTick } from 'vue'
 
 const emits = defineEmits(['update:modelValue', 'update:title'])
 const props = defineProps({
   modelValue: {
     type: Object,
-    default: () => {}
   }
 })
+
+const initialState = {type: 'doc', content: [{ type: 'title' }, { type: 'paragraph' }]}
 
 const menu = ref(null)
 const dropdown = ref(false)
@@ -65,14 +67,16 @@ onClickOutside(menu, () => dropdown.value = false)
 
 const editor = shallowRef(null)
 
-onMounted(() => {
+onMounted(async () => {
   const CustomDocument = Document.extend({
     content: 'title block*',
   })
 
+  const isNotEmpty = props.modelValue?.type === 'doc'
+
   editor.value = new Editor({
     autofocus: true,
-    content: '',
+    content: isNotEmpty ? props.modelValue : initialState,
     extensions: [
       CustomDocument,
       Heading.configure({
@@ -82,11 +86,16 @@ onMounted(() => {
       Image,
       Paragraph,
       Placeholder.configure({
-        placeholder: ({ node }) => {
+        placeholder: ({ editor, node }) => {
+          const { view: { state: { doc }}} = editor
+
           if (node.type.name === 'title') {
-            return 'Придумайте заголовок'
+            return 'И, обходя моря и земли,'
           }
-          return ''
+
+          if (doc.childCount === 2 && node.type.name === 'paragraph') {
+            return 'Глаголом жги сердца людей'
+          }
         },
         showOnlyCurrent: false
       }),
@@ -95,17 +104,30 @@ onMounted(() => {
       Dropcursor.configure({
         width: 2,
       }),
-      Typography.configure({
-        openDoubleQuote: '«',
-        closeDoubleQuote: '»'
-      }),
+      Typography,
     ],
     onUpdate: ({ editor }) => {
       emits('update:modelValue', editor.getJSON())
     },
+    /*onTransaction({ transaction }) {
+      const { doc } = transaction
+
+      if (doc.content.childCount === 2) {
+        const { firstChild, lastChild } = doc.content
+
+        if (firstChild.type.name === 'title' && lastChild.type.name === 'paragraph') {
+          console.log(lastChild)
+        }
+      }
+    },*/
+    editorProps: {
+      attributes: {
+        class: 'prose prose-sm focus:outline-none',
+      },
+    },
   })
 
-  if (props.modelValue && props.modelValue?.type === 'doc') {
+  /*if (props.modelValue && props.modelValue?.type === 'doc') {
     const first = props.modelValue.content[0]
 
     if (first.type !== 'title') {
@@ -119,9 +141,7 @@ onMounted(() => {
         ],
       })
     }
-
-    editor.value.commands.setContent(props.modelValue)
-  }
+  }*/
 })
 
 onBeforeUnmount(() => editor.value.destroy)
