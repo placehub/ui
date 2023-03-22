@@ -1,7 +1,6 @@
 import {
   Node,
-  mergeAttributes,
-  textblockTypeInputRule
+  mergeAttributes
 } from '@tiptap/core'
 
 export default Node.create({
@@ -28,11 +27,4 @@ export default Node.create({
   renderHTML({ node, HTMLAttributes }) {
     return ['h1', mergeAttributes(this.options.HTMLAttributes, HTMLAttributes), 0]
   },
-
-  /*addInputRules() {
-    return textblockTypeInputRule({
-      find: new RegExp(`^(#{1,1})\\s$`),
-      type: this.type,
-    })
-  },*/
 })
