@@ -7,10 +7,10 @@
       <Draggable :modelValue="modelValue" @update:modelValue="emits('update:modelValue', $event)" itemKey="id" class="grid grid-cols-4 gap-4 mb-4">
         <template #item="{ element, index }">
           <div class="aspect-square relative">
-            <img :src="element.url" alt="" class="object-cover rounded-lg w-full h-full cursor-move" @click="onDetach(index)" />
-            <button type="button" @click="onDelete(index)" class="absolute top-2 right-2 bg-black/50 p-2 rounded-full">
+            <img :src="element.url" alt="" class="object-cover rounded-lg w-full h-full cursor-move" />
+<!--            <button type="button" @click="onDelete(index)" class="absolute top-2 right-2 bg-black/50 p-2 rounded-full">
               <Unlink class="w-4 h-4 text-white" />
-            </button>
+            </button>-->
             <button type="button" @click="onDelete(index)" class="absolute top-2 right-2 bg-black/50 p-2 rounded-full">
               <Trash class="w-4 h-4 text-white" />
             </button>
@@ -59,5 +59,6 @@ const onDetach = async (index) => {
 const onDelete = (index) => {
   const images = [...props.modelValue]
   images.splice(index, 1)
+  emits('update:modelValue', images)
 }
 </script>

@@ -22,25 +22,27 @@
         Подзаголовок
       </button>
     </BubbleMenu>
-    <EditorContent :editor="editor" />
+    <div class="prose prose-sm  bg-slate-50 rounded-lg py-4 px-12">
+      <EditorContent :editor="editor" />
+      <slot />
+    </div>
   </div>
 </template>
 
 <script setup>
 import 'swiper/css'
 import Document from '@tiptap/extension-document'
+import Dropcursor from '@tiptap/extension-dropcursor'
 import Heading from '@tiptap/extension-heading'
 import History from '@tiptap/extension-history'
-import Image from './extensions/image'
 import Paragraph from '@tiptap/extension-paragraph'
 import Placeholder from '@tiptap/extension-placeholder'
 import Text from '@tiptap/extension-text'
-import Title from './extensions/title'
-import Dropcursor from '@tiptap/extension-dropcursor'
 import Typography from '@tiptap/extension-typography'
 import bubbleMenuShouldShow from './bubble-menu-should-show'
 import floatingMenuShouldShow from './floating-menu-should-show'
 import { Editor, EditorContent, FloatingMenu, BubbleMenu } from '@tiptap/vue-3'
+import { Image, Title } from './extensions'
 import { onBeforeUnmount, ref, shallowRef, onMounted } from 'vue'
 import { onClickOutside } from '@vueuse/core'
 
@@ -106,7 +108,7 @@ onMounted(async () => {
     },
     editorProps: {
       attributes: {
-        class: 'prose prose-sm outline-none bg-slate-50 rounded-lg py-4 px-12',
+        class: 'outline-none',
       },
     },
   })
@@ -130,7 +132,7 @@ button.plus  {
     margin: auto;
   }
 
-  .is-empty:not(h1) {
+  .is-empty:not(h1), p {
     @apply bg-slate-100 p-1;
   }
 
