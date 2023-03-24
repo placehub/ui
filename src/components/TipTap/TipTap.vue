@@ -22,7 +22,7 @@
         Подзаголовок
       </button>
     </BubbleMenu>
-    <div class="prose prose-sm  bg-slate-50 rounded-lg py-4 px-12">
+    <div class="bg-slate-50 rounded-lg py-4 px-12">
       <EditorContent :editor="editor" />
       <slot />
     </div>
@@ -108,7 +108,7 @@ onMounted(async () => {
     },
     editorProps: {
       attributes: {
-        class: 'outline-none',
+        class: 'prose prose-sm outline-none',
       },
     },
   })
