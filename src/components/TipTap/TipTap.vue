@@ -46,7 +46,7 @@ import { Image, Title } from './extensions'
 import { onBeforeUnmount, ref, shallowRef, onMounted } from 'vue'
 import { onClickOutside } from '@vueuse/core'
 
-const emits = defineEmits(['update:modelValue', 'update:title'])
+const emits = defineEmits(['update:modelValue'])
 const props = defineProps({
   modelValue: {
     type: Object,

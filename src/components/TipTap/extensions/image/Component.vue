@@ -18,6 +18,7 @@
 <script setup>
 import { NodeViewWrapper, nodeViewProps } from '@tiptap/vue-3'
 import { shallowRef, computed } from 'vue'
+import { useQuery } from '../../../../index'
 import useOverlay from '../../../Overlay/useOverlay'
 import CarouselEditDialog from './CarouselEditDialog.vue'
 import Carousel from './Carousel.vue'
@@ -73,7 +74,7 @@ const addParagraph = () => {
 /*
   Создаем инпут-файл и отправляем изображения на сервер.
  */
-const onUpload = () => {
+const onUpload = async () => {
   inputFile.value          = document.createElement('input')
   inputFile.value.accept   = 'image/*'
   inputFile.value.type     = 'file'
