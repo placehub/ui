@@ -26,7 +26,7 @@
         Подзаголовок
       </button>
     </BubbleMenu>
-    <div class="bg-slate-50 rounded-lg py-4 px-12">
+    <div class="bg-slate-50 rounded-lg py-4 px-10">
       <EditorContent :editor="editor" />
       <slot />
     </div>
