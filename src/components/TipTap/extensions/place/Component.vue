@@ -1,6 +1,7 @@
 <template>
   <NodeViewWrapper
-      class="flex space-x-4 p-4 bg-white rounded-lg cursor-move"
+      class="flex space-x-4 p-4 bg-white rounded-lg cursor-move my-4"
+      :class="{'ring-blue-300 ring-offset-2 ring': selected}"
       contenteditable="false"
       data-drag-handle
       draggable="true">

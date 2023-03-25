@@ -1,6 +1,6 @@
 <template>
   <div class="relative h-full">
-    <div v-show="showPreviousButton" @click="onPrevious" class="carousel-arrow left-0 pl-2">
+    <div v-show="showPreviousButton" @click="onPrevious" class="carousel-arrow left-0">
       <div class="carousel-arrow-icon">
         <ChevronLeft class="w-8 h-8 text-white" />
       </div>
@@ -8,7 +8,7 @@
     <div class="flex justify-center h-full">
       <img :src="activeImage.url" @load="isLoading = false" alt="" class="h-full object-cover" />
     </div>
-    <div v-show="showNextButton" @click="onNext" class="carousel-arrow right-0 pr-2">
+    <div v-show="showNextButton" @click="onNext" class="carousel-arrow right-0">
       <div class="carousel-arrow-icon ml-auto">
         <ChevronRight class="w-8 h-8 text-white" />
       </div>
@@ -19,7 +19,7 @@
 
 <style>
 .carousel-arrow {
-  @apply absolute top-0 w-1/2 h-full flex items-center cursor-pointer;
+  @apply absolute top-0 h-full px-4 flex items-center justify-center cursor-pointer;
 }
 .carousel-arrow-icon {
   @apply bg-black/50 p-1 rounded-full;
