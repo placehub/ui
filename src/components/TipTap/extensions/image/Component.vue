@@ -126,13 +126,17 @@ const onUpload = async () => {
         query: formData
       })
 
-      // Первое изображение вставляем в этот блок.
       props.updateAttributes({
-        images: [data.upload[0]]
+        images: [...props.node.attrs.images, ...data.upload]
       })
 
+      // Первое изображение вставляем в этот блок.
+      /*props.updateAttributes({
+        images: [data.upload[0]]
+      })*/
+
       // Остальные изображения вставляем в новые блоки.
-      if (data.upload.length > 1) {
+      /*if (data.upload.length > 1) {
         data.upload.splice(1).forEach((image, index) => {
           props.editor.commands.insertContentAt(props.getPos() + index, {
             type: 'image',
@@ -141,7 +145,7 @@ const onUpload = async () => {
             }
           })
         })
-      }
+      }*/
     } catch (errors) {
       console.log(errors)
     } finally {

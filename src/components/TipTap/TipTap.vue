@@ -46,8 +46,9 @@ import bubbleMenuShouldShow from './bubble-menu-should-show'
 import floatingMenuShouldShow from './floating-menu-should-show'
 import { Editor, EditorContent, FloatingMenu, BubbleMenu } from '@tiptap/vue-3'
 import { Image, Place, Title } from './extensions'
-import { onBeforeUnmount, ref, shallowRef, onMounted } from 'vue'
+import { onBeforeUnmount, ref, shallowRef, onMounted, defineAsyncComponent } from 'vue'
 import { onClickOutside } from '@vueuse/core'
+import { useOverlay } from '../../index'
 
 const emits = defineEmits(['update:modelValue'])
 const props = defineProps({
@@ -55,6 +56,8 @@ const props = defineProps({
     type: Object,
   }
 })
+
+const overlay = useOverlay()
 
 const initialState = {type: 'doc', content: [{ type: 'title' }, { type: 'paragraph' }]}
 
@@ -126,8 +129,19 @@ const addImage = () => {
   })
 }
 const addPlace = () => {
-  editor.value.commands.insertContent({
-    type: 'place',
+  dropdown.value = false
+  overlay.show(defineAsyncComponent(() => import('./extensions/place/SelectPlaceDialog.vue')), {
+    on: {
+      submit(place) {
+        editor.value.commands.insertContent({
+          type: 'place',
+          attrs: {
+            ...place
+          }
+        })
+        overlay.hide()
+      }
+    }
   })
 }
 </script>

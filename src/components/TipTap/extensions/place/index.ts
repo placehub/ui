@@ -20,6 +20,9 @@ export default Node.create({
       id: {
         default: null,
       },
+      name: {
+        default: null
+      }
     }
   },
 
