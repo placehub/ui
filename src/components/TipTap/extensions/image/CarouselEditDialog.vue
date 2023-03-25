@@ -18,9 +18,9 @@
         </template>
 
         <template #footer>
-          <button :disabled="isLoading" title="Создать карусель изображений" class="relative flex items-center justify-center bg-gray-200 hover:bg-indigo-300 hover:text-indigo-500 text-gray-400 transition-colors aspect-square rounded-lg" type="button" @click="emits('upload')">
+          <button :disabled="isUploading" title="Создать карусель изображений" class="relative flex items-center justify-center bg-gray-200 hover:bg-indigo-300 hover:text-indigo-500 text-gray-400 transition-colors aspect-square rounded-lg" type="button" @click="onAddImages">
             <ImagePlus class="w-12 h-12" />
-            <Loader v-show="isLoading" class="z-10 bg-black/50" />
+            <Loader v-show="isUploading" class="z-10 bg-black/50" />
           </button>
         </template>
       </Draggable>
@@ -35,6 +35,9 @@
 import Draggable from 'vuedraggable'
 import { Button, Loader } from '../../../../index'
 import { ImagePlus, Trash, Unlink } from 'lucide-vue-next'
+import useUpload from '../../composables/useUpload'
+
+const { onUpload, isUploading } = useUpload()
 
 const emits = defineEmits(['update:modelValue', 'save', 'upload', 'detach'])
 
@@ -43,10 +46,13 @@ const props = defineProps({
     type: Array,
     default: () => []
   },
-  isLoading: {
-    type: Boolean
-  }
 })
+
+const onAddImages = async () => {
+  await onUpload((images) => {
+    emits('update:modelValue', [...props.modelValue, ...images])
+  })
+}
 
 /*
   Изображение будет откреплено от текущего набора и вставлено отдельно.

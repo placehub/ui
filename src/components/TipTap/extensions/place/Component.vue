@@ -1,14 +1,14 @@
 <template>
   <NodeViewWrapper
-      class="flex items-center space-x-4 p-4 bg-white rounded-lg"
+      class="flex space-x-4 p-4 bg-white rounded-lg cursor-move"
       contenteditable="false"
       data-drag-handle
       draggable="true">
-    <div class="w-[80px] h-[80px] bg-slate-100 rounded-lg">
+    <div class="w-[80px] h-[80px] bg-slate-100 rounded-lg flex-shrink-0">
 
     </div>
     <div>
-      <div class="text-2xl font-semibold">{{ node.attrs.name }}</div>
+      <div class="text-lg font-semibold">{{ node.attrs.name }}</div>
       <div>{{ node.attrs }}</div>
     </div>
   </NodeViewWrapper>

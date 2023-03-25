@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div class="relative">
+    <Loader v-if="isUploading" class="bg-black/50" />
     <FloatingMenu
       v-if="editor"
       :editor="editor"
@@ -48,7 +49,8 @@ import { Editor, EditorContent, FloatingMenu, BubbleMenu } from '@tiptap/vue-3'
 import { Image, Place, Title } from './extensions'
 import { onBeforeUnmount, ref, shallowRef, onMounted, defineAsyncComponent } from 'vue'
 import { onClickOutside } from '@vueuse/core'
-import { useOverlay } from '../../index'
+import { useOverlay, Loader } from '../../index'
+import useUpload from './composables/useUpload'
 
 const emits = defineEmits(['update:modelValue'])
 const props = defineProps({
@@ -58,6 +60,7 @@ const props = defineProps({
 })
 
 const overlay = useOverlay()
+const { onUpload, isUploading } = useUpload()
 
 const initialState = {type: 'doc', content: [{ type: 'title' }, { type: 'paragraph' }]}
 
@@ -123,11 +126,21 @@ onMounted(async () => {
 
 onBeforeUnmount(() => editor.value.destroy)
 
-const addImage = () => {
-  editor.value.commands.insertContent({
-    type: 'image',
+const addImage = async () => {
+  await onUpload((images) => {
+    const position = editor.value.state.selection.$anchor.pos
+
+    images.forEach((image, index) => {
+      editor.value.commands.insertContentAt(position + index, {
+        type: 'image',
+        attrs: {
+          images: [image]
+        }
+      })
+    })
   })
 }
+
 const addPlace = () => {
   dropdown.value = false
   overlay.show(defineAsyncComponent(() => import('./extensions/place/SelectPlaceDialog.vue')), {
