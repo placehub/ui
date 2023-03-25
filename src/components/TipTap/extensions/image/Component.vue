@@ -7,7 +7,9 @@
       <Carousel v-if="hasImages" :modelValue="computedImages" />
       <!-- / Carousel -->
 
-      <div v-if="!hasImages" @click="onUpload">Выбрать фото</div>
+      <div v-if="!hasImages" @click="onUpload" class="flex items-center justify-center h-full cursor-pointer">
+        Нажмите, чтобы выбрать изображения
+      </div>
       <div v-show="hasImages" @click="showCarouselEditDialog" class="absolute top-0 right-0 z-10 p-2 cursor-pointer flex items-center space-x-2">
         <div class="bg-black/50 text-white rounded-lg py-1 px-2.5">{{ hasImages > 1 ? 'Редактировать' : 'Создать карусель' }}</div>
       </div>
@@ -124,12 +126,22 @@ const onUpload = async () => {
         query: formData
       })
 
+      // Первое изображение вставляем в этот блок.
       props.updateAttributes({
-        images: [
-          ...props.node.attrs.images,
-          ...data.upload
-        ]
+        images: [data.upload[0]]
       })
+
+      // Остальные изображения вставляем в новые блоки.
+      if (data.upload.length > 1) {
+        data.upload.splice(1).forEach((image, index) => {
+          props.editor.commands.insertContentAt(props.getPos() + index, {
+            type: 'image',
+            attrs: {
+              images: [image]
+            }
+          })
+        })
+      }
     } catch (errors) {
       console.log(errors)
     } finally {

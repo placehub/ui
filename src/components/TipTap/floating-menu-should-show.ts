@@ -14,6 +14,8 @@ export default ({ editor, view, state }) => {
       || selection.head === 1
       // Не показывает меню в подписях для изображений.
       || $anchor?.parent?.type?.name === 'image'
+      // Не показывает меню в подписях для мест.
+      || $anchor?.parent?.type?.name === 'place'
   ) {
     return false
   }

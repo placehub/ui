@@ -16,6 +16,14 @@ export default ({ editor, view, state, from, to }) => {
 
   const hasEditorFocus = view.hasFocus() // || isChildOfMenu
 
+  let hasBlocks = 0
+
+  doc.nodesBetween(from, to, (node) => {
+    if (node.type.name === 'image' || node.type.name === 'title' || node.type.name === 'place') {
+      hasBlocks++
+    }
+  })
+
   if (
       !hasEditorFocus
       || empty
@@ -24,9 +32,7 @@ export default ({ editor, view, state, from, to }) => {
       // Не показывает меню в заголовке.
       || $anchor.parent.type.name === 'title'
       // Не показывает меню для блока изображений.
-      || node?.type?.name === 'image'
-      // Не показывает меню в подписях для изображений.
-      || $anchor?.parent?.type?.name === 'image'
+      || hasBlocks > 0
   ) {
     return false
   }

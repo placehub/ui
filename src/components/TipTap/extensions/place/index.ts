@@ -3,13 +3,11 @@ import { Node, mergeAttributes } from '@tiptap/core'
 import { VueNodeViewRenderer } from '@tiptap/vue-3'
 
 export default Node.create({
-  name: 'image',
+  name: 'place',
 
   group: 'block',
 
   draggable: true,
-
-  selectable: true,
 
   addOptions() {
     return {
@@ -19,20 +17,20 @@ export default Node.create({
 
   addAttributes() {
     return {
-      images: {
-        default: [],
+      id: {
+        default: null,
       },
     }
   },
 
   parseHTML() {
     return [{
-      tag: 'image',
+      tag: 'place',
     }]
   },
 
   renderHTML({ HTMLAttributes }) {
-    return ['image', mergeAttributes(this.options.HTMLAttributes, HTMLAttributes)]
+    return ['place', mergeAttributes(this.options.HTMLAttributes, HTMLAttributes)]
   },
 
   addNodeView() {

@@ -15,6 +15,9 @@
         <button type="button" @click="addImage">
           addImage
         </button>
+        <button type="button" @click="addPlace">
+          addPlace
+        </button>
       </div>
     </FloatingMenu>
     <BubbleMenu v-if="editor" :editor="editor" :tippy-options="{delay: 500}" :should-show="bubbleMenuShouldShow" id="bubble-menu">
@@ -42,7 +45,7 @@ import Typography from '@tiptap/extension-typography'
 import bubbleMenuShouldShow from './bubble-menu-should-show'
 import floatingMenuShouldShow from './floating-menu-should-show'
 import { Editor, EditorContent, FloatingMenu, BubbleMenu } from '@tiptap/vue-3'
-import { Image, Title } from './extensions'
+import { Image, Place, Title } from './extensions'
 import { onBeforeUnmount, ref, shallowRef, onMounted } from 'vue'
 import { onClickOutside } from '@vueuse/core'
 
@@ -80,6 +83,7 @@ onMounted(async () => {
       History,
       Image,
       Paragraph,
+      Place,
       Placeholder.configure({
         placeholder: ({ editor, node }) => {
           const { view: { state: { doc }}} = editor
@@ -119,6 +123,11 @@ onBeforeUnmount(() => editor.value.destroy)
 const addImage = () => {
   editor.value.commands.insertContent({
     type: 'image',
+  })
+}
+const addPlace = () => {
+  editor.value.commands.insertContent({
+    type: 'place',
   })
 }
 </script>
