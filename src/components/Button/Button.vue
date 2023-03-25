@@ -22,7 +22,7 @@ const props = defineProps({
     type: String,
     default: 'primary',
     validator(type) {
-      return ['primary', 'secondary', 'danger', 'success'].includes(type)
+      return ['primary', 'secondary', 'danger', 'success', 'dark'].includes(type)
     },
   },
   type: {
@@ -48,6 +48,7 @@ const classes = computed(() => {
     secondary:  'text-indigo-400 enabled:hover:bg-indigo-50 border border-indigo-200 focus:ring-indigo-100 focus:ring-4',
     danger:     'text-white bg-red enabled:hover:bg-red-dark focus:ring-red-light focus:ring-4',
     success:    'text-white bg-green enabled:hover:bg-green-dark focus:ring-green-light focus:ring-4',
+    dark:       'text-white bg-black/40 enabled:hover:bg-black/50 focus:ring-black/20 focus:ring-4'
   };
 
   return {
