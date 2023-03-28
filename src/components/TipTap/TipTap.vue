@@ -1,6 +1,6 @@
 <template>
   <div class="relative">
-    <Loader v-if="isUploading" class="bg-black/50" />
+    <Loader v-if="isUploading" class="bg-black/50" style="z-index: 9999" />
     <FloatingMenu
       v-if="editor"
       :editor="editor"

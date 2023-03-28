@@ -7,13 +7,15 @@
     @click="$emit('click', $event)"
   >
     <Loader v-if="loading" />
+    <slot v-if="hasPrependSlot && !loading" name="prepend"></slot>
     <span :style="{visibility: loading ? 'hidden' : 'visible'}"><slot></slot></span>
+    <slot v-if="hasAppendSlot && !loading" name="append"></slot>
   </button>
 </template>
 
 <script setup>
 import Loader from '../Loader/Loader.vue'
-import { computed } from 'vue'
+import { computed, useSlots } from 'vue'
 
 defineEmits(['click'])
 
@@ -42,6 +44,15 @@ const props = defineProps({
   }
 })
 
+const slots = useSlots()
+
+const hasPrependSlot = computed(() => {
+  return !!slots['prepend'];
+})
+const hasAppendSlot = computed(() => {
+  return !!slots['append'];
+})
+
 const classes = computed(() => {
   const variants = {
     primary:    'text-white bg-indigo-500 enabled:hover:bg-indigo-600 focus:ring-indigo-400 focus:ring-4',
@@ -52,8 +63,9 @@ const classes = computed(() => {
   };
 
   return {
-    'relative font-medium rounded-md text-sm px-5 py-2 h-10 focus:outline-none disabled:opacity-75 transition duration-100 ease-in-out"': true,
+    'text-center relative font-medium rounded-md text-sm px-5 py-2 h-10 focus:outline-none disabled:opacity-75 transition duration-100 ease-in-out"': true,
     [variants[props.variant]]: true,
+    'flex items-center space-x-2': hasAppendSlot || hasPrependSlot
   }
 })
 </script>
