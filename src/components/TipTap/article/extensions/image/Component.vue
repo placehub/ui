@@ -1,5 +1,5 @@
 <template>
-  <NodeViewWrapper @click="selectNode" :class="{'ring-blue-300 ring-offset-2 ring': selected}" contenteditable="false"
+  <NodeViewWrapper @click="selectNode" :class="{'ring-blue-300 ring-offset-2 ring': selected}" data-drag-handle contenteditable="false"
                    draggable="true">
     <figure v-show="! isEdit" class="relative h-[360px]">
       <!-- Carousel -->
@@ -18,15 +18,11 @@
 <script setup>
 import { NodeViewWrapper, nodeViewProps } from '@tiptap/vue-3'
 import { shallowRef, computed } from 'vue'
-import useOverlay from '../../../Overlay/useOverlay'
 import CarouselEdit from './CarouselEdit.vue'
 import Carousel from './Carousel.vue'
 
 const emits = defineEmits(['uploaded'])
 const props = defineProps(nodeViewProps)
-
-const overlay = useOverlay()
-
 
 const computedImages = computed(() => props.node.attrs.images)
 const hasImages = computed(() => computedImages.value.length)

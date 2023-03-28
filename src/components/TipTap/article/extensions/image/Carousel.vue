@@ -29,7 +29,7 @@
 <script setup>
 import { shallowRef, computed, watch } from 'vue'
 import { ChevronLeft, ChevronRight } from 'lucide-vue-next'
-import { Loader } from '../../../../index'
+import { Loader } from '../../../../../index'
 
 const props = defineProps({
   modelValue: {

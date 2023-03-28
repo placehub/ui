@@ -43,10 +43,10 @@ import Paragraph from '@tiptap/extension-paragraph'
 import Placeholder from '@tiptap/extension-placeholder'
 import Text from '@tiptap/extension-text'
 import Typography from '@tiptap/extension-typography'
-import bubbleMenuShouldShow from './bubble-menu-should-show'
-import floatingMenuShouldShow from './floating-menu-should-show'
+import bubbleMenuShouldShow from './article/bubble-menu-should-show'
+import floatingMenuShouldShow from './article/floating-menu-should-show'
 import { Editor, EditorContent, FloatingMenu, BubbleMenu } from '@tiptap/vue-3'
-import { Image, Place, Title } from './extensions'
+import { Image, Place, Title } from './article/extensions'
 import { onBeforeUnmount, ref, shallowRef, onMounted, defineAsyncComponent } from 'vue'
 import { onClickOutside } from '@vueuse/core'
 import { useOverlay, Loader } from '../../index'
@@ -118,7 +118,7 @@ onMounted(async () => {
     },
     editorProps: {
       attributes: {
-        class: 'prose prose-sm outline-none',
+        class: 'ProseMirrorArticle prose prose-sm outline-none',
       },
     },
   })
@@ -143,7 +143,7 @@ const addImage = async () => {
 
 const addPlace = () => {
   dropdown.value = false
-  overlay.show(defineAsyncComponent(() => import('./extensions/place/SelectPlaceDialog.vue')), {
+  overlay.show(defineAsyncComponent(() => import('./article/extensions/place/SelectPlaceDialog.vue')), {
     on: {
       submit(place) {
         editor.value.commands.insertContent({
@@ -163,7 +163,7 @@ const addPlace = () => {
 button.plus  {
   @apply bg-white shadow rounded-full w-6 h-6 block;
 }
-.ProseMirror {
+.ProseMirrorArticle {
   img {
     margin: auto;
   }
