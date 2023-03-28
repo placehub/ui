@@ -1,5 +1,5 @@
 <template>
-  <NodeViewWrapper @click="selectNode" :class="{'ring-blue-300 ring-offset-2 ring': selected}" data-drag-handle contenteditable="false"
+  <NodeViewWrapper @click="selectNode" :class="{'ring-blue-300 ring-offset-2 ring': selected}" contenteditable="false"
                    draggable="true">
     <figure v-show="! isEdit" class="relative h-[360px]">
       <!-- Carousel -->
