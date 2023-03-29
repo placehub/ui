@@ -36,7 +36,7 @@ onMounted(async () => {
 
   editor.value = new Editor({
     autofocus: true,
-    content: props.modelValue,
+    content: '',
     extensions: [
       CustomDocument,
       History,

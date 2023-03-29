@@ -26,7 +26,7 @@
         Подзаголовок
       </button>
     </BubbleMenu>
-    <div class="bg-slate-50 rounded-lg py-4 px-10">
+    <div>
       <EditorContent :editor="editor" />
       <slot />
     </div>
@@ -166,10 +166,6 @@ button.plus  {
 .ProseMirrorArticle {
   img {
     margin: auto;
-  }
-
-  .is-empty:not(h1), p {
-    @apply bg-slate-100 p-1;
   }
 
   p.is-editor-empty:first-child::before {
