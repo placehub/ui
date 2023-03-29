@@ -34,9 +34,11 @@ onMounted(async () => {
     content: 'paragraph paragraph*',
   })
 
+  const content = Object.hasOwn(props.modelValue, 'type') ? props.modelValue : { type: 'doc', content: [{ type: 'paragraph' }] }
+
   editor.value = new Editor({
     autofocus: true,
-    content: '',
+    content,
     extensions: [
       CustomDocument,
       History,
