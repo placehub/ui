@@ -1,13 +1,22 @@
+import axios from 'axios'
 import { useNuxtApp } from 'nuxt/app'
 
 const useQuery = async ({ query, variables = {} }, options = {}) => {
   const { $auth, $config } = useNuxtApp()
 
-  const isFormData = query instanceof FormData
+  const instance = axios.create({
+    baseURL: $config.public.GRAPHQL_URL,
+    headers: {
+      Authorization : $auth.strategy.token.get()
+    },
+    method: 'POST',
+  })
 
-  let body = query
+  let body = ''
 
-  if (! isFormData) {
+  if (query instanceof FormData) {
+    body = query
+  } else {
     body = {
       query: query
           .trim()
@@ -16,26 +25,17 @@ const useQuery = async ({ query, variables = {} }, options = {}) => {
     }
   }
 
-  options.method = 'POST'
-
-  const { data, errors, refresh, pending } = await $fetch($config.public.GRAPHQL_URL, {
-    onRequest({ options }) {
-      options.headers = options.headers || {}
-      options.headers.Accept = 'application/json'
-      options.headers.Authorization = $auth.strategy.token.get()
-    },
-    body,
+  const { data } = await instance({
+    data: body,
     ...options
   })
 
-  if (errors) {
-    throw errors
+  if (data.errors) {
+    throw data.errors
   }
 
   return {
-    data,
-    refresh,
-    pending
+    data: data.data,
   }
 }
 

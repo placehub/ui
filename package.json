@@ -20,6 +20,7 @@
     "@tiptap/pm": "^2.0.0-rc.1",
     "@tiptap/vue-3": "^2.0.0-rc.1",
     "@vueuse/core": "10.0.0-beta.2",
+    "axios": "^1.3.4",
     "lucide-vue-next": "^0.128.0",
     "vue": "^3.2.47",
     "vue3-toastify": "^0.1.6"

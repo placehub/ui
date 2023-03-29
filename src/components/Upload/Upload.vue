@@ -1,19 +1,18 @@
 <template>
   <div @click="$refs.file.click" class="cursor-pointer">
     <input type="file" @change="onChange" multiple ref="file" class="hidden">
-    <slot :isLoading="isLoading" />
+    <slot :isLoading="isLoading" :uploadProgress="uploadProgress" />
   </div>
 </template>
 
 <script setup>
 import useQuery from '../../composables/useQuery'
 import { shallowRef } from 'vue'
+import { throttle } from 'lodash'
 
 const emit = defineEmits([
-  'start',
-  'end',
   'update:modelValue',
-  'error'
+  'progress',
 ])
 
 const props = defineProps({
@@ -36,6 +35,7 @@ const props = defineProps({
 })
 
 const isLoading = shallowRef(false)
+const uploadProgress = shallowRef(0)
 
 const onChange = async (event) => {
   const images = event.target.files
@@ -98,15 +98,15 @@ const onChange = async (event) => {
 
     isLoading.value = true
 
-    emit('start')
-
     const { data } = await useQuery({
       query: formData
+    }, {
+      onUploadProgress: throttle((progressEvent) => {
+        emit('progress', Math.round((progressEvent.loaded * 100) / progressEvent.total))
+      }, 1000),
     })
 
     const uploaded = data[props.mutationName]
-
-    emit('end')
 
     if (typeof uploaded === 'string') {
       emit('update:modelValue', uploaded)
@@ -120,12 +120,14 @@ const onChange = async (event) => {
       emit('update:modelValue', arr)
     }
   } catch (error) {
+    console.log(error)
     if (error?.extensions?.validation) {
       emit('error', error.extensions.validation)
     }
   } finally {
     event.target.value = ''
     isLoading.value = false
+    emit('progress', 0)
   }
 }
 </script>
