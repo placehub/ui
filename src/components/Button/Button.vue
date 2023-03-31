@@ -3,7 +3,6 @@
     :class="classes"
     :type="type"
     :disabled="disabled || loading"
-    v-ripple
     @click="$emit('click', $event)"
   >
     <Loader v-if="loading" />
@@ -63,9 +62,9 @@ const classes = computed(() => {
   };
 
   return {
-    'text-center relative font-medium rounded-md text-sm px-5 py-2 h-10 focus:outline-none disabled:opacity-75 transition duration-100 ease-in-out"': true,
+    'flex justify-center items-center text-center relative font-medium rounded-md text-sm px-5 py-2 h-10 focus:outline-none disabled:opacity-75 transition duration-100 ease-in-out"': true,
     [variants[props.variant]]: true,
-    'flex items-center space-x-2': hasAppendSlot || hasPrependSlot
+    'space-x-2': hasAppendSlot || hasPrependSlot
   }
 })
 </script>

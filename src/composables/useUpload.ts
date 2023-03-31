@@ -4,6 +4,7 @@ import { shallowRef, ref } from 'vue'
 const isUploading = shallowRef(false)
 const progress = shallowRef(0)
 const previews = ref([])
+const busyPreviews = ref([])
 
 interface Options {
   accept?: string
@@ -43,7 +44,9 @@ const upload = async (callback, options: Options): Promise<void> => {
 
     for (let file of files) {
       formData.append('images[]', file)
-      previews.value.push(URL.createObjectURL(file))
+      const objURL = URL.createObjectURL(file)
+      previews.value.push(objURL)
+      busyPreviews.value.push(objURL)
     }
 
     formData.set('operations', JSON.stringify({
@@ -84,6 +87,7 @@ const upload = async (callback, options: Options): Promise<void> => {
     } finally {
       isUploading.value = false
       progress.value = 0
+      busyPreviews.value = []
       inputFile.removeEventListener('change', handle)
     }
   }
@@ -91,6 +95,17 @@ const upload = async (callback, options: Options): Promise<void> => {
   inputFile.addEventListener('change', handle)
 }
 
+const setPreviews = (images: string[]) => {
+  previews.value = images
+}
+
 export default () => {
-  return { upload, isUploading, progress, previews }
+  return {
+    busyPreviews,
+    isUploading,
+    previews,
+    progress,
+    setPreviews,
+    upload,
+  }
 }

@@ -13,7 +13,6 @@
         class="w-full h-full object-cover block rounded-lg"
       />
     </div>
-    {{ progress }}
   </div>
 </template>
 

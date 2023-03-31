@@ -19,8 +19,8 @@ const useQuery = async ({ query, variables = {} }, options = {}) => {
   } else {
     body = {
       query: query
-          .trim()
-          .replaceAll(/\s+/ig, ' '),
+        .trim()
+        .replaceAll(/\s+/ig, ' '),
       variables
     }
   }
