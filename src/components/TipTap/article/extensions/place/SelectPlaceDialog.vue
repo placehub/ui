@@ -5,7 +5,7 @@
         <h3 class="text-lg font-medium mb-4">Поиск места</h3>
       </header>
       <div>
-        <SearchPlace v-model="place" />
+        <PlaceSearch v-model="place" />
       </div>
       <footer class="mt-6">
         <Button @click="emits('submit', place)">Сохранить</Button>
@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-import { Button, SearchPlace } from '../../../../../index'
+import { Button, PlaceSearch } from '../../../../../index'
 import { shallowRef } from 'vue'
 
 const place = shallowRef()

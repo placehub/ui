@@ -12,7 +12,7 @@ export { default as Overlay } from './components/Overlay/Overlay.vue'
 export { default as OverlayPlugin } from './components/Overlay/OverlayPlugin.ts'
 
 // Search
-export { default as SearchPlace } from './components/Search/SearchPlace/SearchPlace.vue'
+export { default as PlaceSearch } from './components/Search/PlaceSearch.vue'
 
 export { default as useOverlay } from './components/Overlay/useOverlay.ts'
 export { default as Textarea } from './components/Textarea/Textarea.vue'

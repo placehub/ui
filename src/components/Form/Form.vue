@@ -32,12 +32,12 @@ const onSubmit = handleSubmit(async () => {
 
     await props.submit()
 
-    if (props.successMessage) {
+    /*if (props.successMessage) {
       toastId.value = toast.success(props.successMessage, {
         position: toast.POSITION.TOP_CENTER,
         theme: 'dark',
       } as ToastOptions)
-    }
+    }*/
   } catch (errors) {
     if (errors[0].extensions?.validation) {
       setErrors(errors[0].extensions.validation);
