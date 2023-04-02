@@ -78,7 +78,7 @@ const textareaAfterStyles = computed(() => {
   position: relative;
 
   textarea {
-    @apply overflow-hidden resize-none text-sm w-full outline-none;
+    @apply overflow-hidden resize-none text-sm w-full outline-none leading-relaxed;
   }
 }
 
@@ -93,6 +93,7 @@ const textareaAfterStyles = computed(() => {
   }
 }
 .textarea::after {
+  @apply leading-relaxed;
   content: attr(data-replicated-text) ' ';
   grid-area: 1 / 1 / 2 / 2;
   visibility: hidden;
