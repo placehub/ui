@@ -35,7 +35,9 @@ const upload = async (callback, options: Options): Promise<void> => {
   inputFile.click()
 
   const handle = async (event) => {
-    if (isUploading.value) return
+    if (isUploading.value) {
+      return
+    }
 
     isUploading.value = true
 
@@ -85,10 +87,10 @@ const upload = async (callback, options: Options): Promise<void> => {
     } catch (errors) {
       console.log(errors)
     } finally {
-      isUploading.value = false
+      inputFile.removeEventListener('change', handle)
       progress.value = 0
       busyPreviews.value = []
-      inputFile.removeEventListener('change', handle)
+      isUploading.value = false
     }
   }
 

@@ -1,5 +1,5 @@
 <template>
-  <div ref="root" class="textarea">
+  <div class="textarea" :class="textareaAfterStyles" :data-replicated-text="props.modelValue">
     <textarea
       :aria-label="label"
       :disabled="disabled"
@@ -8,6 +8,8 @@
       :required="required"
       :rows="rows"
       :value="modelValue"
+      :class="textareaStyles"
+      :maxlength="maxlength"
       @input="onInput"
     />
   </div>
@@ -15,7 +17,7 @@
 
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { computed } from 'vue'
 
 const emit = defineEmits(['update:modelValue'])
 
@@ -46,16 +48,29 @@ const props = defineProps({
   rows: {
     type: [String, Number],
     default: 1
+  },
+  maxlength: {
+    type: [Number, String]
+  },
+  withoutStyles: {
+    type: Boolean
   }
 })
 
-const root = ref()
-
-onMounted(() => root.value.dataset.replicatedText = props.modelValue)
-
 const onInput = (event) => {
- emit('update:modelValue', root.value.dataset.replicatedText = event.target.value)
+ emit('update:modelValue', event.target.value)
 }
+
+const textareaStyles = computed(() => {
+  const classes = 'border border-indigo-100 focus:ring-indigo-100 focus:border-indigo-200 rounded-lg p-2 focus:outline-none focus:ring-4 disabled:opacity-75 transition duration-100 ease-in-out'
+
+  return !props.withoutStyles ? classes : ''
+})
+
+const textareaAfterStyles = computed(() => {
+  const classes = 'after:p-2 after:w-full after:text-sm after:border after:border-transparent'
+  return !props.withoutStyles ? classes : ''
+})
 </script>
 
 <style lang="scss">
@@ -63,7 +78,7 @@ const onInput = (event) => {
   position: relative;
 
   textarea {
-    @apply overflow-hidden resize-none border border-indigo-100 focus:ring-indigo-100 focus:border-indigo-200 w-full rounded-lg text-sm p-2 focus:outline-none focus:ring-4 disabled:opacity-75 transition duration-100 ease-in-out;
+    @apply overflow-hidden resize-none text-sm w-full outline-none;
   }
 }
 
@@ -78,7 +93,6 @@ const onInput = (event) => {
   }
 }
 .textarea::after {
-  @apply p-2 w-full text-sm border border-transparent;
   content: attr(data-replicated-text) ' ';
   grid-area: 1 / 1 / 2 / 2;
   visibility: hidden;

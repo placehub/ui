@@ -17,7 +17,6 @@ export { default as PlaceSearch } from './components/Search/PlaceSearch.vue'
 export { default as useOverlay } from './components/Overlay/useOverlay.ts'
 export { default as Textarea } from './components/Textarea/Textarea.vue'
 export { default as TipTap } from './components/TipTap/TipTap.vue'
-export { default as TipTapPost } from './components/TipTap/TipTapPost.vue'
 export { default as Upload } from './components/Upload/Upload.vue'
 export { default as ImageGrid } from './components/ImageGrid.vue'
 
