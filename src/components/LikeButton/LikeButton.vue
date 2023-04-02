@@ -15,6 +15,8 @@ import useQuery from '../../composables/useQuery'
 import { Heart } from 'lucide-vue-next'
 import { ref } from 'vue'
 
+const emits = defineEmits(['status'])
+
 const props = defineProps({
   modelType: {
     type: String,
@@ -70,6 +72,8 @@ const onClick = async () => {
     } else if (like.value.count > 0) {
       like.value.count--;
     }
+
+    emits('status', data.likeDislike)
   } catch (errors) {
     console.log(errors)
   }
