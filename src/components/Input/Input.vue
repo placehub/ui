@@ -23,6 +23,7 @@
 </template>
 
 <script setup>
+import './styles.scss'
 import { computed, useSlots, ref, watch } from 'vue'
 
 const emit = defineEmits(['click-prepend', 'click-append', 'update:modelValue'])
@@ -79,18 +80,18 @@ const classes = computed(() => {
     success: 'border border-green focus:ring-green-light',
   };
 
-  let paddingX = 'px-2.5';
+  let paddingX = '';
 
   if (hasPrependSlot.value && hasAppendSlot.value) {
-    paddingX = 'px-9'
+    paddingX = 'input--prepend input--append'
   } else if (hasPrependSlot.value && !hasAppendSlot.value) {
-    paddingX = 'pl-9 pr-2.5'
+    paddingX = 'input--prepend'
   } else if (hasAppendSlot.value && !hasPrependSlot.value) {
-    paddingX = 'pl-2.5 pr-10'
+    paddingX = 'input--append'
   }
 
   return {
-    [`${paddingX} relative w-full rounded-lg text-sm py-2.5 focus:outline-none focus:ring-4 disabled:opacity-75 transition duration-100 ease-in-out`]: true,
+    [`${paddingX} input`]: true,
     [variants[getVariant.value]]: true,
   }
 })

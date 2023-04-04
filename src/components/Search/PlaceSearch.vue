@@ -2,12 +2,12 @@
   <Combobox v-model="selectedItems" @update:modelValue="onSelect">
     <div>
       <ComboboxInput
-          class="input input-default"
-          autocomplete="off"
+          :displayValue="(place) => place?.[keyName]"
           @input="onChange"
+          autocomplete="off"
+          class="input"
           placeholder="Поиск места"
           ref="input"
-          :displayValue="(place) => place?.[keyName]"
       />
 
       <div v-if="items.length" class="relative z-50">
