@@ -9,3 +9,7 @@
 .input--append {
   @apply pl-2.5 pr-9;
 }
+
+.input--error {
+  @apply border border-red-200 focus:ring-red-300 focus:border-red-400;
+}

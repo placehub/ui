@@ -5,24 +5,18 @@
 </template>
 
 <script lang="ts" setup>
-import { shallowRef, onUnmounted } from 'vue'
-import { toast, type ToastOptions } from 'vue3-toastify'
+import { shallowRef } from 'vue'
 import { useForm } from 'vee-validate'
 
 const props = defineProps({
   submit: {
     type: Function
   },
-  successMessage: {
-    type: String,
-    default: 'Сохранено!'
-  }
 })
 
 const { handleSubmit, setErrors } = useForm()
 
 const isLoading = shallowRef(false)
-const toastId = shallowRef()
 
 const onSubmit = handleSubmit(async () => {
   try {
@@ -31,21 +25,12 @@ const onSubmit = handleSubmit(async () => {
     isLoading.value = true
 
     await props.submit()
-
-    /*if (props.successMessage) {
-      toastId.value = toast.success(props.successMessage, {
-        position: toast.POSITION.TOP_CENTER,
-        theme: 'dark',
-      } as ToastOptions)
-    }*/
-  } catch (errors) {
-    if (errors[0].extensions?.validation) {
-      setErrors(errors[0].extensions.validation);
+  } catch (error) {
+    if (error[0]?.extensions?.validation) {
+      setErrors(error[0].extensions.validation);
     }
   } finally {
     isLoading.value = false
   }
 })
-
-onUnmounted(() => toast.remove(toastId.value))
 </script>

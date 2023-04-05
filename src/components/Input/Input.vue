@@ -61,10 +61,6 @@ const props = defineProps({
 })
 
 const slots = useSlots()
-const getVariant = ref(props.variant)
-watch(() => props.variant, (newValue) => {
-  getVariant.value = newValue.value
-})
 
 const hasPrependSlot = computed(() => {
   return !!slots.prepend;
@@ -73,12 +69,16 @@ const hasAppendSlot = computed(() => {
   return !!slots.append;
 });
 
-const classes = computed(() => {
+const getVariant = computed(() => {
   const variants = {
     default:  'border border-indigo-100 focus:ring-indigo-100 focus:border-indigo-200',
-    error: 'border border-red focus:ring-red-light',
-    success: 'border border-green focus:ring-green-light',
-  };
+    success:  'border border-green focus:ring-green-light',
+  }
+
+  return `input--${props.variant}`
+})
+
+const classes = computed(() => {
 
   let paddingX = '';
 
@@ -92,7 +92,7 @@ const classes = computed(() => {
 
   return {
     [`${paddingX} input`]: true,
-    [variants[getVariant.value]]: true,
+    [getVariant.value]: true,
   }
 })
 </script>
