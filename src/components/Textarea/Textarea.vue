@@ -68,32 +68,26 @@ const textareaStyles = computed(() => {
 })
 
 const textareaAfterStyles = computed(() => {
-  const classes = 'after:p-2 after:w-full after:text-sm after:border after:border-transparent'
+  const classes = 'after:p-2 after:w-full after:text-sm after:border after:border-transparent leading-relaxed'
   return !props.withoutStyles ? classes : ''
 })
 </script>
 
 <style lang="scss">
-.textarea {
-  position: relative;
-
-  textarea {
-    @apply overflow-hidden resize-none text-sm w-full outline-none leading-relaxed;
-  }
-}
-
 /**
  * https://css-tricks.com/the-cleanest-trick-for-autogrowing-textareas
  */
 .textarea {
   display: grid;
+  position: relative;
 
   textarea {
+    @apply overflow-hidden resize-none text-sm w-full outline-none leading-relaxed;
     grid-area: 1 / 1 / 2 / 2;
   }
 }
 .textarea::after {
-  @apply leading-relaxed;
+  @apply leading-relaxed text-sm;
   content: attr(data-replicated-text) ' ';
   grid-area: 1 / 1 / 2 / 2;
   visibility: hidden;
