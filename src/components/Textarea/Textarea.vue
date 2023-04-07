@@ -87,7 +87,7 @@ const textareaAfterStyles = computed(() => {
   }
 }
 .textarea::after {
-  @apply leading-relaxed text-sm;
+  @apply leading-relaxed text-sm leading-relaxed;
   content: attr(data-replicated-text) ' ';
   grid-area: 1 / 1 / 2 / 2;
   visibility: hidden;
