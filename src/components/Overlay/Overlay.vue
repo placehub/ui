@@ -1,64 +1,44 @@
-<script setup>
-import { computed } from 'vue'
-import useOverlay from './useOverlay.ts'
-
-const overlay = useOverlay()
-
-const count = computed(() => overlay.stack.length)
-
-const onHide = () => {
-  if (typeof overlay.stack[0]?.onHide === 'function') {
-    overlay.stack[0].onHide()
-  }
-
-  overlay.hide()
-}
-</script>
-
 <template>
-  <div v-if="count" class="overlay">
-    <div
-      tabindex="-1"
-      aria-hidden="true"
-      class="absolute left-0 top-0 right-0 bottom-0 grid grid-cols-12 h-full"
-    >
-      <component
-        class="absolute"
-        :is="overlay.component"
-        :key="overlay.key"
-        :style="{
+  <div v-if="count" class="overlay" tabindex="-1">
+    <component
+      v-bind="overlay.props"
+      v-for="(overlay, index) in overlay.stack"
+      v-on="overlay.on"
+      class="absolute"
+      role="dialog"
+      :is="overlay.component"
+      :key="overlay.key"
+      :style="{
         zIndex: index + 1
-        }"
-          v-bind="overlay.props"
-          v-for="(overlay, index) in overlay.stack"
-          v-on="overlay.on"
-          role="dialog"
-      ></component>
-    </div>
-    <div class="overlay-backdrop"
-         @click="onHide" :style="{
-      zIndex: count - 1
-    }"></div>
+      }"
+    ></component>
+    <div class="overlay-backdrop" :style="{zIndex: count - 1}" @click="overlay.hide"></div>
   </div>
 </template>
 
-<style>
-.overlay {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 9999;
-  overflow: hidden;
+<script setup>
+import useOverlay from './useOverlay.ts'
+import { computed, onMounted, onBeforeUnmount } from 'vue'
+
+const overlay = useOverlay()
+const count = computed(() => overlay.stack.length)
+
+const onKeydown = (event) => {
+  if (overlay.stack.length && event.key === 'Escape') {
+    overlay.hide()
+  }
 }
-.overlay-backdrop {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-color: rgba(0,0,0,.4);
-  z-index: 1;
+
+onMounted(() => document.addEventListener('keydown', onKeydown))
+onBeforeUnmount(() => document.removeEventListener('keydown', onKeydown))
+</script>
+
+<style lang="scss">
+.overlay {
+  @apply flex justify-center fixed top-0 right-[17px] bottom-0 left-0 overflow-hidden z-[9999];
+
+  &-backdrop {
+    @apply fixed top-0 right-0 bottom-0 left-0 z-[1] bg-black/50;
+  }
 }
 </style>
