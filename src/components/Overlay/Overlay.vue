@@ -1,5 +1,5 @@
 <template>
-  <div v-if="count" class="overlay" tabindex="-1">
+  <div v-if="count" class="overlay" tabindex="1">
     <component
       v-bind="overlay.props"
       v-for="(overlay, index) in overlay.stack"

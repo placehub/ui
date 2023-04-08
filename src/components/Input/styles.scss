@@ -1,13 +1,13 @@
 .input {
-  @apply px-2.5 border border-indigo-100 focus:ring-indigo-100 focus:border-indigo-200 relative w-full rounded-lg text-sm py-2.5 focus:outline-none focus:ring-4 disabled:opacity-75 transition duration-100 ease-in-out;
+  @apply px-2 h-[42px] border border-indigo-100 focus:ring-indigo-100 focus:border-indigo-200 relative w-full rounded-lg text-sm focus:outline-none focus:ring-4 disabled:opacity-75 transition duration-100 ease-in-out;
 }
 
 .input--prepend {
-  @apply pl-9 pr-2.5;
+  @apply pl-10;
 }
 
 .input--append {
-  @apply pl-2.5 pr-9;
+  @apply pr-10;
 }
 
 .input--error {

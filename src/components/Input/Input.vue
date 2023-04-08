@@ -1,7 +1,7 @@
 <template>
   <div class="relative flex items-center">
     <div v-if="hasPrependSlot" @click="$emit('click-prepend', $event)"
-         class="absolute z-10 w-10 h-10 flex items-center justify-center">
+         class="absolute z-10 w-10 h-10 pl-2 flex items-center justify-center">
       <slot name="prepend"></slot>
     </div>
     <input
@@ -11,12 +11,11 @@
       :type="type"
       :value="modelValue"
       :id="id"
-      @input="$emit('update:modelValue', $event.target.value)"
       :placeholder="placeholder"
-      style="max-height: 40px"
+      @input="$emit('update:modelValue', $event.target.value)"
     >
     <div v-if="hasAppendSlot" @click="$emit('click-append', $event)"
-         class="absolute right-0 z-10 w-10 h-10 flex items-center justify-center">
+         class="absolute right-0 z-10 w-10 h-10 pr-2 flex items-center justify-center">
       <slot name="append"></slot>
     </div>
   </div>
@@ -91,7 +90,7 @@ const classes = computed(() => {
   }
 
   return {
-    [`${paddingX} input`]: true,
+    [`input ${paddingX} `]: true,
     [getVariant.value]: true,
   }
 })
