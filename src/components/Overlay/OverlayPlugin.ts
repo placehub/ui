@@ -3,11 +3,14 @@ import { reactive, markRaw } from 'vue'
 export default {
   install: (app) => {
     let stack = reactive([])
+    let attrs = {}
 
     const show = (component, attributes = {on: {}, props: {}}) => {
       if (! attributes?.on) {
         attributes.on = {};
       }
+
+      attrs = attributes
 
       const overlay = {
         key: Math.random().toString(36).substring(2),
@@ -29,7 +32,7 @@ export default {
     /**
      * @param all - скрыть все диалоги.
      */
-    const hide = (all = false) => {
+    const hide = async (all = false) => {
       if (all) {
         stack.length = 0
       } else {
@@ -39,6 +42,10 @@ export default {
       if (stack.length === 0) {
         document.body.style.overflow = ''
         document.body.style.paddingRight = ''
+      }
+
+      if (typeof attrs?.on?.hide === 'function') {
+        setTimeout(attrs.on.hide, 0)
       }
     }
 

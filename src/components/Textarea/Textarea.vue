@@ -11,7 +11,7 @@
       :class="textareaStyles"
       :maxlength="maxlength"
       v-model="input"
-      @update:modelValue="$emit('update:modelValue', $event)"
+      @input="$emit('update:modelValue', $event.target.value)"
     />
   </div>
 </template>
@@ -19,7 +19,7 @@
 
 <script setup>
 import { useTextareaAutosize } from '@vueuse/core'
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 
 defineEmits(['update:modelValue'])
 
