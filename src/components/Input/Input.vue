@@ -57,6 +57,12 @@ const props = defineProps({
       return ['text', 'date', 'email', 'password', 'number'].includes(type)
     },
   },
+  hasError: {
+    type: Boolean
+  },
+  hasSuccess: {
+    type: Boolean
+  }
 })
 
 const slots = useSlots()
@@ -64,6 +70,7 @@ const slots = useSlots()
 const hasPrependSlot = computed(() => {
   return !!slots.prepend;
 });
+
 const hasAppendSlot = computed(() => {
   return !!slots.append;
 });
@@ -71,10 +78,19 @@ const hasAppendSlot = computed(() => {
 const getVariant = computed(() => {
   const variants = {
     default:  'border border-indigo-100 focus:ring-indigo-100 focus:border-indigo-200',
-    success:  'border border-green focus:ring-green-light',
   }
 
-  return `input--${props.variant}`
+  let variant = props.variant
+
+  if (props.hasSuccess) {
+    variant = 'has-success'
+  }
+
+  if (props.hasError) {
+    variant = 'has-error'
+  }
+
+  return `input--${variant}`
 })
 
 const classes = computed(() => {

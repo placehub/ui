@@ -10,6 +10,10 @@
   @apply pr-10;
 }
 
-.input--error {
-  @apply border border-red-200 focus:ring-red-300 focus:border-red-400;
+.input--has-error {
+  @apply border border-red-300 focus:ring-red-300 focus:border-red-400;
+}
+
+.input--has-success {
+  @apply border border-green-300 focus:ring-green-300 focus:border-green-400;
 }
