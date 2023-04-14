@@ -8,7 +8,7 @@
       <slot :hasError="errorMessage !== undefined" />
     </div>
     <p v-if="errorMessage" class="mt-1 text-red-500 font-semibold text-xs">{{ errorMessage }}</p>
-    <p v-if="!!$slots['help'] && !errorMessage" class="mt-2 text-gray-400 font-medium text-xs">
+    <p v-if="!!$slots['help'] && !errorMessage" class="mt-1 text-gray-400 font-medium text-xs">
       <slot name="help"></slot>
     </p>
   </Field>
