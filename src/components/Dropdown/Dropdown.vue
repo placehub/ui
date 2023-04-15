@@ -1,11 +1,12 @@
 <template>
   <div ref="root">
-    <div ref="button" class="trigger" style="display: inline-block; height: inherit">
+    <div ref="button" class="flex items-center justify-center trigger">
       <slot :isActive="isActive"></slot>
     </div>
     <div ref="popper" class="popper absolute z-10 left-0 top-0" style="display: none">
-      <div class="bg-white rounded-lg shadow-sm inline-block overflow-hidden p-1 ring-1 ring-slate-100">
+      <div class="bg-white rounded-lg shadow-lg inline-block overflow-hidden p-1 ring-1 ring-slate-100">
         <slot name="popper" :hide="hide"></slot>
+        <slot name="content" :hide="hide"></slot>
       </div>
     </div>
   </div>
@@ -19,7 +20,7 @@ import { onClickOutside } from '@vueuse/core'
 const props = defineProps({
   placement: {
     type:    String,
-    default: 'bottom-start'
+    default: 'bottom-end'
   },
   trigger: {
     type:    String,
