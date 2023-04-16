@@ -45,7 +45,7 @@ export default {
       }
 
       if (typeof attrs?.on?.hide === 'function') {
-        setTimeout(attrs.on.hide, 0)
+        setTimeout(attrs.on.hide)
       }
     }
 
