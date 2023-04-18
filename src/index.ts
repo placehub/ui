@@ -34,3 +34,9 @@ export { default as useUpload } from './composables/useUpload.ts'
 // PLUGINS //
 /////////////
 export { default as ToastifyPlugin } from './plugins/toastify'
+
+
+///////////
+// UTILS //
+///////////
+export { default as declOfNum } from './utils/declOfNum'
