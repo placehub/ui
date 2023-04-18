@@ -23,7 +23,7 @@ const props = defineProps({
     type: String,
     default: 'primary',
     validator(type) {
-      return ['primary', 'secondary', 'danger', 'success', 'dark'].includes(type)
+      return ['default', 'primary', 'secondary', 'danger', 'success', 'dark'].includes(type)
     },
   },
   type: {
