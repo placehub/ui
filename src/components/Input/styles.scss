@@ -1,5 +1,5 @@
 .input {
-  @apply px-2 h-[42px] border border-indigo-100 focus:ring-indigo-100 focus:border-indigo-200 relative w-full rounded-lg text-sm focus:outline-none focus:ring-4 disabled:opacity-75 transition duration-100 ease-in-out;
+  @apply px-2 h-[42px] border border-indigo-100 relative w-full rounded-lg text-sm disabled:opacity-75 transition duration-100 ease-in-out focus:ring-indigo-100 focus:border-indigo-300 focus:outline-none focus:ring-4;
 }
 
 .input--prepend {
@@ -16,4 +16,12 @@
 
 .input--has-success {
   @apply border border-green-300 focus:ring-green-300 focus:border-green-400;
+}
+
+.input--fake {
+  @apply py-4 px-4 h-auto;
+}
+
+.input--fake-focus {
+  @apply ring-indigo-100 border-indigo-300 outline-none ring-4;
 }

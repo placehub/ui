@@ -12,6 +12,8 @@
       :maxlength="maxlength"
       v-model="input"
       @input="$emit('update:modelValue', $event.target.value)"
+      @focus="$emit('focus')"
+      @blur="$emit('blur')"
     />
   </div>
 </template>
@@ -21,7 +23,7 @@
 import { useTextareaAutosize } from '@vueuse/core'
 import { computed } from 'vue'
 
-defineEmits(['update:modelValue'])
+defineEmits(['update:modelValue', 'focus', 'blur'])
 
 const props = defineProps({
   modelValue: {
