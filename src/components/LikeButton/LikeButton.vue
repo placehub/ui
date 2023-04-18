@@ -6,7 +6,7 @@
     :title="like.isLiked ? 'Вам понравилось' : 'Мне нравится'"
     @click="onClick">
     <Heart class="h-4 w-4 mr-1" :class="{[like.isLiked ? 'text-red-500' : 'text-gray-500']: true}" />
-    <span class="min-w-[12px] text-slate-600 font-medium text-right">{{ like.count }}</span>
+    <span class="min-w-[12px] text-slate-600 text-xs font-semibold text-right">{{ like.count }}</span>
   </button>
 </template>
 
