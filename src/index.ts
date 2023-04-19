@@ -6,6 +6,8 @@ export { default as Dropdown } from './components/Dropdown/Dropdown.vue'
 export { default as DropdownItem } from './components/Dropdown/DropdownItem.vue'
 export { default as Form } from './components/Form/Form.vue'
 export { default as FormField } from './components/Form/FormField.vue'
+export { default as ImageViewer } from './components/ImageViewer/ImageViewer.vue'
+
 export { default as Input } from './components/Input/Input.vue'
 export { default as LikeButton } from './components/LikeButton/LikeButton.vue'
 export { default as Loader } from './components/Loader/Loader.vue'
