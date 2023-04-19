@@ -21,7 +21,7 @@
 
 <script setup>
 import { useTextareaAutosize } from '@vueuse/core'
-import { computed } from 'vue'
+import { computed, watch } from 'vue'
 
 defineEmits(['update:modelValue', 'focus', 'blur'])
 
@@ -63,6 +63,12 @@ const props = defineProps({
 
 const { textarea, input } = useTextareaAutosize({
   input: props.modelValue
+})
+
+watch(() => props.modelValue, (newValue) => {
+  if (newValue.trim() !== input.value.trim()) {
+    input.value = newValue
+  }
 })
 
 const textareaStyles = computed(() => {

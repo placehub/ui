@@ -12,6 +12,12 @@
   </button>
 </template>
 
+<script>
+export default {
+  name: 'Button'
+}
+</script>
+
 <script setup>
 import Loader from '../Loader/Loader.vue'
 import { computed, useSlots } from 'vue'

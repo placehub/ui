@@ -12,6 +12,12 @@
   </div>
 </template>
 
+<script>
+export default {
+  name: 'Dropdown'
+}
+</script>
+
 <script setup>
 import { computePosition, flip, shift, offset } from '@floating-ui/dom'
 import { ref, onMounted, onBeforeUnmount } from 'vue'

@@ -13,6 +13,12 @@
   </Component>
 </template>
 
+<script>
+export default {
+  name: 'DropdownItem'
+}
+</script>
+
 <script setup>
 import { resolveComponent, computed, useSlots } from 'vue'
 
