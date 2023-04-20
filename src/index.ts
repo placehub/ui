@@ -42,3 +42,5 @@ export { default as ToastifyPlugin } from './plugins/toastify'
 // UTILS //
 ///////////
 export { default as declOfNum } from './utils/declOfNum'
+
+export * from './components/comments'
