@@ -11,7 +11,7 @@
 </template>
 
 <script setup>
-import useQuery from '../../composables/useQuery'
+import { useQuery } from '../../../index'
 import { Heart } from 'lucide-vue-next'
 import { ref } from 'vue'
 

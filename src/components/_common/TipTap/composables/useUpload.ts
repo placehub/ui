@@ -1,4 +1,4 @@
-import { useQuery } from '../../../index'
+import { useQuery } from '../../../../index'
 import { shallowRef } from 'vue'
 
 const isUploading = shallowRef(false)

@@ -6,7 +6,7 @@
 </template>
 
 <script setup>
-import useQuery from '../../composables/useQuery'
+import { useQuery } from '../../../index'
 import { shallowRef } from 'vue'
 import { throttle } from 'lodash'
 

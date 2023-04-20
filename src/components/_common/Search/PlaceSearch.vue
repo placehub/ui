@@ -52,7 +52,7 @@
 <script setup>
 import { nextTick, ref } from 'vue'
 import { debounce } from 'lodash-es'
-import { useQuery } from '../../index'
+import { useQuery } from '../../../index'
 
 import {
   Combobox,

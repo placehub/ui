@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-import { Button, PlaceSearch } from '../../../../../index'
+import { Button, PlaceSearch } from '../../../../../../index'
 import { shallowRef } from 'vue'
 
 const place = shallowRef()

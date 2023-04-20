@@ -56,7 +56,7 @@ export default {
 
 <script setup>
 import useUpload from '../../../composables/useUpload'
-import { Button } from '../../../../../index'
+import { Button } from '../../../../../../index'
 import { ImagePlus, Trash } from 'lucide-vue-next'
 import { onClickOutside } from '@vueuse/core'
 

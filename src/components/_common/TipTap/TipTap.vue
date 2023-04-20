@@ -49,7 +49,7 @@ import { Editor, EditorContent, FloatingMenu, BubbleMenu } from '@tiptap/vue-3'
 import { Image, Place, Title } from './article/extensions'
 import { onBeforeUnmount, ref, shallowRef, onMounted, defineAsyncComponent } from 'vue'
 import { onClickOutside } from '@vueuse/core'
-import { useOverlay, Loader } from '../../index'
+import { useOverlay, Loader } from '../../../index'
 import useUpload from './composables/useUpload'
 
 const emits = defineEmits(['update:modelValue'])
