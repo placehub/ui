@@ -4,6 +4,12 @@
   </article>
 </template>
 
+<script>
+export default {
+  name: 'BaseComment'
+}
+</script>
+
 <script setup>
 import { computed } from 'vue'
 import { useCommentsStore } from '@placehub/ui'
