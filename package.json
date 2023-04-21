@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "main": "src/index.ts",
   "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./comments": "./src/components/comments/index.ts"
+  },
   "license": "MIT",
   "dependencies": {
     "@floating-ui/dom": "^1.2.6",

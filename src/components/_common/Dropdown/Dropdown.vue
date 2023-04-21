@@ -1,6 +1,6 @@
 <template>
   <div ref="root">
-    <div ref="button" class="flex items-center justify-center trigger">
+    <div ref="button" class="flex items-center justify-center h-full trigger">
       <slot :isActive="isActive"></slot>
     </div>
     <div ref="popper" class="popper absolute z-10 left-0 top-0" style="display: none">
@@ -95,7 +95,7 @@ onBeforeUnmount(() => {
   }
 })
 
-onClickOutside(popper, (event) => {
+onClickOutside(popper, () => {
   const isTrigger = root.value.closest('.trigger')
 
   // Если клик по trigger, то не обрабатываем событие его обработает toggle.
