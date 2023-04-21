@@ -3,10 +3,6 @@
   "version": "1.0.0",
   "main": "src/index.ts",
   "type": "module",
-  "exports": {
-    ".": "./src/index.ts",
-    "./comments": "./src/components/comments/index.ts"
-  },
   "license": "MIT",
   "dependencies": {
     "@floating-ui/dom": "^1.2.6",
@@ -34,5 +30,7 @@
     "vue": "^3.2.47",
     "vue3-toastify": "^0.1.6"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@types/lodash-es": "^4.17.7"
+  }
 }

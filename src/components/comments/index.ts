@@ -1,3 +1,3 @@
-export { default as BaseComment } from './components/BaseComment.vue'
 export { default as useComments } from './composables/useComments'
-export { default as useCommentsStore } from './store'
+export { useCommentsStore } from './store'
+export * as BaseComment from './components/BaseComment.vue'
