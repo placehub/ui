@@ -17,36 +17,38 @@ const defaultOptions: Options = {
 }
 
 const isUploading = shallowRef(false)
-const previews = ref([])
+const stubs = ref([])
 
 async function handleUpload(
   options: QueryOptions = {}
-): Promise<object> {
-  if (! defaultOptions.modelType) {
-    throw new Error('Передайте параметр modelType.')
-  }
+): Promise<any> {
+  return new Promise((resolve, reject) => {
+    if (! defaultOptions.modelType) {
+      reject(new Error('Передайте параметр modelType.'))
+    }
 
-  if (isUploading.value) {
-    return
-  }
+    if (isUploading.value) {
+      reject('Я занят...')
+      return
+    }
 
-  isUploading.value = true
+    let inputFile = document.createElement('input')
 
-  const inputFile = document.createElement('input')
+    inputFile.accept   = 'image/*'
+    inputFile.multiple = defaultOptions.multiple
+    inputFile.type     = 'file'
+    inputFile.click()
 
-  inputFile.accept   = 'image/*'
-  inputFile.multiple = defaultOptions.multiple
-  inputFile.type     = 'file'
-  inputFile.click()
-
-  return new Promise((resolve) => {
     function onChange(event) {
-      const formData = new FormData()
+      // Флаг должен быть именно в этом месте.
+      isUploading.value = true
+
       const files = event.target.files
+      const formData = new FormData()
 
       for (let file of files) {
         formData.append('images[]', file)
-        previews.value.push(URL.createObjectURL(file))
+        stubs.value.push(URL.createObjectURL(file))
       }
 
       formData.set('operations', JSON.stringify({
@@ -71,14 +73,14 @@ async function handleUpload(
         images: ['variables.images'],
       }))
 
-      try {
-        resolve(useQuery({ query: formData }, options))
-      } catch (error) {
-        console.log(error)
-      } finally {
-        isUploading.value = false
-        inputFile.removeEventListener('change', onChange)
-      }
+      useQuery({ query: formData }, options)
+        .then((data) => resolve(data))
+        .finally(() => {
+          isUploading.value = false
+          stubs.value = []
+        })
+
+      inputFile.removeEventListener('change', onChange)
     }
 
     inputFile.addEventListener('change', onChange)
@@ -89,6 +91,7 @@ export default (options) => {
   Object.assign(defaultOptions, options)
 
   return {
+    stubs,
     handleUpload,
   }
 }

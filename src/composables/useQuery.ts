@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { useNuxtApp } from 'nuxt/app'
 
-const useQuery = async ({ query, variables = {} }, options = {}) => {
+const useQuery = ({ query, variables = {} }, options = {}): Promise<any> => {
   const { $auth, $config } = useNuxtApp()
 
   const instance = axios.create({
@@ -12,7 +12,7 @@ const useQuery = async ({ query, variables = {} }, options = {}) => {
     method: 'POST',
   })
 
-  let body = ''
+  let body
 
   if (query instanceof FormData) {
     body = query
@@ -25,18 +25,18 @@ const useQuery = async ({ query, variables = {} }, options = {}) => {
     }
   }
 
-  const { data } = await instance({
-    data: body,
-    ...options
+  return new Promise(async (resolve, reject) => {
+    const { data } = await instance({
+      data: body,
+      ...options
+    })
+
+    if (data.errors) {
+      reject(data.errors)
+    }
+
+    resolve(data.data)
   })
-
-  if (data.errors) {
-    throw data.errors
-  }
-
-  return {
-    data: data.data,
-  }
 }
 
 export default useQuery

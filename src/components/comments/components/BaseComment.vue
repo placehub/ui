@@ -11,7 +11,7 @@ export default {
 </script>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, nextTick } from 'vue'
 import { useCommentsStore } from '@placehub/ui'
 
 const props = defineProps({
@@ -25,8 +25,18 @@ const store = useCommentsStore()
 
 const isReply = computed(() => parseInt(store.selectedComment?.id) === parseInt(props.comment.id))
 
-const onEdit = () => {
+const onEdit = async () => {
   store.setSelectedComment(props.comment, 'edit')
+
+  await nextTick()
+
+  const header = document.querySelector('#header')
+  const target = document.querySelector(`#comment-form-${props.comment.id}`).offsetTop
+
+  window.scrollTo({
+    behavior: 'smooth',
+    top: (target - header.offsetHeight) - 120,
+  })
 }
 
 const onReply = () => {
