@@ -9,7 +9,8 @@ interface Options {
 
 interface Variables {
   page?: number
-  order_by?: 'popular'
+  order_by?: 'popular',
+  limit?: number
 }
 
 let post_id
@@ -18,11 +19,12 @@ let graphql
 function getComments({
   page = 1,
   order_by,
+  limit = 2,
 }: Variables = {}): Promise<any> {
   return useQuery({
     query: `
-      query getComments($post_id: ID!, $page: Int, $order_by: String) {
-        comments(post_id: $post_id, page: $page, order_by: $order_by) {
+      query getComments($post_id: ID!, $page: Int, $order_by: String, $limit: Int) {
+        comments(post_id: $post_id, page: $page, order_by: $order_by, limit: $limit) {
           ${graphql.COMMENT}
         }
       }
@@ -31,6 +33,7 @@ function getComments({
       post_id,
       page,
       order_by,
+      limit
     }
   })
 }
