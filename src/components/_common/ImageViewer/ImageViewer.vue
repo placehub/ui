@@ -55,7 +55,7 @@ const props = defineProps({
   },
   selector: {
     type: String,
-    default: 'img'
+    default: '[data-src]'
   },
   closable: {
     type: Boolean
@@ -90,11 +90,11 @@ const onSlideChange= (slide) => {
   active.value = slide.activeIndex
 }
 
-onMounted(() => {
+onMounted(async () => {
   document.addEventListener('keydown', onEsc)
 
   root.value.querySelectorAll(props.selector)
-      .forEach(image => images.value.push({...image.dataset}))
+    .forEach(image => images.value.push({...image.dataset}))
 })
 
 onBeforeUnmount(() => document.removeEventListener('keydown', onEsc))
@@ -102,7 +102,7 @@ onBeforeUnmount(() => document.removeEventListener('keydown', onEsc))
 const onClick = ({ target }) => {
   if (target.nodeName === 'IMG') {
     for (let index in images.value) {
-      if (parseInt(target.dataset.id) === parseInt(images.value[index].id)) {
+      if (target.dataset.src === images.value[index].src) {
         active.value = parseInt(index)
         break
       }

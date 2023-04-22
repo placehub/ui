@@ -1,0 +1,188 @@
+.gallery {
+  @apply grid gap-px relative overflow-hidden rounded-lg;
+
+  > div {
+    overflow: hidden;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  &-grid-2,
+  &-grid-3,
+  &-grid-4,
+  &-grid-5,
+  &-grid-6,
+  &-grid-7,
+  &-grid-8,
+  &-grid-9 {
+    img {
+      @apply object-cover;
+    }
+  }
+
+  &-grid-2 {
+    @apply grid-cols-2;
+
+    > div img {
+      height: 240px;
+    }
+  }
+
+  &-grid-3 {
+    @apply grid-cols-6;
+
+    img {
+      @apply aspect-square;
+    }
+
+    > div:first-child {
+      @apply col-span-4 row-span-2;
+    }
+
+    > div:nth-child(2),
+    > div:nth-child(3), {
+      @apply col-span-2;
+    }
+  }
+
+  &-grid-4 {
+    @apply grid-cols-3;
+
+    > div:first-child {
+      @apply col-span-3;
+      height: 320px;
+
+      img {
+        height: 100%;
+      }
+    }
+
+    > div:nth-child(2),
+    > div:nth-child(3),
+    > div:nth-child(4), {
+      @apply col-span-1;
+
+      img {
+        @apply aspect-square;
+      }
+    }
+  }
+
+  &-grid-5 {
+    @apply grid-cols-6;
+
+    > div:nth-child(1),
+    > div:nth-child(2) {
+      @apply aspect-square col-span-3;
+    }
+
+    > div:nth-child(3),
+    > div:nth-child(4),
+    > div:nth-child(5), {
+      @apply aspect-square;
+      grid-column: 2 span / 2 span;
+    }
+  }
+
+  &-grid-6 {
+    @apply grid-cols-8;
+    max-height: none;
+
+    > div:nth-child(1),
+    > div:nth-child(2) {
+      @apply col-span-4;
+
+      img {
+        @apply h-[240px];
+      }
+    }
+
+    > div:nth-child(3),
+    > div:nth-child(4),
+    > div:nth-child(5),
+    > div:nth-child(6), {
+      grid-column: 2 span / 2 span;
+
+      img {
+        @apply h-[120px];
+      }
+    }
+  }
+
+  &-grid-7 {
+    @apply grid-cols-10;
+    max-height: none;
+
+    > div img {
+      @apply aspect-square;
+    }
+
+    > div:nth-child(1),
+    > div:nth-child(2) {
+      @apply col-span-5;
+    }
+
+    > div:nth-child(3),
+    > div:nth-child(4),
+    > div:nth-child(5),
+    > div:nth-child(6),
+    > div:nth-child(7), {
+      grid-column: 2 span / 2 span;
+    }
+  }
+
+  &-grid-8 {
+    @apply grid-cols-12;
+    max-height: none;
+
+    > div:nth-child(1),
+    > div:nth-child(2) {
+      @apply col-span-6 aspect-square h-full;
+    }
+
+    > div:nth-child(3),
+    > div:nth-child(4),
+    > div:nth-child(5),
+    > div:nth-child(6),
+    > div:nth-child(7),
+    > div:nth-child(8), {
+      grid-column: 2 span / 2 span;
+      @apply aspect-square;
+    }
+  }
+
+  &-grid-9 {
+    @apply grid-cols-9;
+    max-height: none;
+
+    > div img {
+      @apply aspect-square;
+    }
+
+    > div {
+      @apply col-span-3;
+    }
+  }
+
+  &-grid-10 {
+    @apply grid-cols-12;
+    max-height: none;
+
+    > div img {
+      @apply aspect-square;
+    }
+
+    > div:nth-child(1),
+    > div:nth-child(2) {
+      @apply col-span-6;
+    }
+
+    > div:not(:nth-child(1)):not(:nth-child(2)) {
+      @apply col-span-3;
+    }
+  }
+}

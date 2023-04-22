@@ -2,7 +2,13 @@
   "compilerOptions": {
     "baseUrl": "src",
     "paths": {
-      "@placehub/ui": ["/index.ts"],
-    }
+      "@placehub/ui": ["/index.ts"]
+    },
+    "lib": [
+      "dom",
+      "es5",
+      "scripthost",
+      "es2015.promise"
+    ]
   }
 }
