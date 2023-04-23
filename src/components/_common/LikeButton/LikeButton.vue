@@ -53,7 +53,7 @@ const onClick = async () => {
   isLoading.value = true
 
   try {
-    const { data } = await useQuery({
+    const { likeDislike } = await useQuery({
       query: `
         mutation($model_type: String!, $model_id: ID!) {
           likeDislike(model_type: $model_type, model_id: $model_id)
@@ -65,7 +65,7 @@ const onClick = async () => {
       }
     })
 
-    like.value.isLiked = (data.likeDislike === 'like');
+    like.value.isLiked = (likeDislike === 'like');
 
     if (like.value.isLiked) {
       like.value.count++;
@@ -73,7 +73,7 @@ const onClick = async () => {
       like.value.count--;
     }
 
-    emits('status', data.likeDislike)
+    emits('status', likeDislike)
   } catch (errors) {
     console.log(errors)
   }
