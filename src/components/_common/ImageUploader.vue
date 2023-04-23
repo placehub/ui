@@ -50,6 +50,7 @@ const onUpload = async () => {
 
     emits('update:modelValue', [...props.modelValue, ...data.images])
   } catch (error) {
+    uploadProgress.value = 0
     console.log(error)
   }
 }

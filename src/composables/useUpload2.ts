@@ -75,6 +75,7 @@ async function handleUpload(
 
       useQuery({ query: formData }, options)
         .then((data) => resolve(data))
+        .catch((error) => reject(error))
         .finally(() => {
           isUploading.value = false
           stubs.value = []
