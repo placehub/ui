@@ -1,0 +1,1 @@
+export { default as PlaceSearch } from './components/PlaceSearch.vue'

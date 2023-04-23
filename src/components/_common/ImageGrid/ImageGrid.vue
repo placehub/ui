@@ -32,7 +32,12 @@ const sizes = {
   1: [{width: 480, height: 320}],
   2: [{width: 480, height: 320}, {width: 160, height: 160}],
   3: [{width: 320, height: 320}, {width: 200, height: 200}, {width: 200, height: 200}],
-  4: [{width: 480, height: 320}, {width: 200, height: 200}, {width: 200, height: 200}, {width: 200, height: 200}],
+  4: [
+    {width: 480, height: 320},
+    {width: 200, height: 200},
+    {width: 200, height: 200},
+    {width: 200, height: 200},
+  ],
   5: [
     {width: 240, height: 240},
     {width: 240, height: 240},

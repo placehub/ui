@@ -1,4 +1,4 @@
-import { shallowRef, ref } from 'vue'
+import { shallowRef } from 'vue'
 import { useQuery } from '@placehub/ui'
 
 interface Options {
@@ -17,7 +17,6 @@ const defaultOptions: Options = {
 }
 
 const isUploading = shallowRef(false)
-const stubs = ref([])
 
 async function handleUpload(
   options: QueryOptions = {}
@@ -48,7 +47,6 @@ async function handleUpload(
 
       for (let file of files) {
         formData.append('images[]', file)
-        stubs.value.push(URL.createObjectURL(file))
       }
 
       formData.set('operations', JSON.stringify({
@@ -78,7 +76,6 @@ async function handleUpload(
         .catch((error) => reject(error))
         .finally(() => {
           isUploading.value = false
-          stubs.value = []
         })
 
       inputFile.removeEventListener('change', onChange)
@@ -92,7 +89,6 @@ export default (options) => {
   Object.assign(defaultOptions, options)
 
   return {
-    stubs,
     handleUpload,
   }
 }

@@ -14,9 +14,6 @@ export { default as Loader } from './Loader/Loader.vue'
 export { default as Overlay } from './Overlay/Overlay.vue'
 export { default as OverlayPlugin } from './Overlay/OverlayPlugin.ts'
 
-// Search
-export { default as PlaceSearch } from './Search/PlaceSearch.vue'
-
 export { default as useOverlay } from './Overlay/useOverlay.ts'
 export { default as Textarea } from './Textarea/Textarea.vue'
 export { default as TipTap } from './TipTap/TipTap.vue'
