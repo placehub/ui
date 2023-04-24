@@ -4,15 +4,14 @@
       :model-value="modelValue"
       @update:model-value="$emit('update:modelValue', $event)"
       v-model:uploadProgress="uploadProgress"
-      @update:uploadProgress="$event === 0 ? emits('end') : ''"
+      @update:uploadProgress="$event === 0 ? emits('busy', false) : ''"
     />
     <div ref="trigger" @click="onUpload"></div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import useUpload2 from '../../composables/useUpload2'
-import { ImageGridEditable } from '@placehub/ui'
+import { useUpload, ImageGridEditable } from '@placehub/ui'
 import { shallowRef, ref, withDefaults } from 'vue'
 
 interface Props {
@@ -20,13 +19,13 @@ interface Props {
   modelValue?: object[]
 }
 
-const emits = defineEmits(['update:modelValue', 'start', 'end'])
+const emits = defineEmits(['update:modelValue', 'busy'])
 
 const props = withDefaults(defineProps<Props>(), {
   modelValue: () => []
 })
 
-const { handleUpload } = useUpload2({
+const { handleUpload } = useUpload({
   modelType: props.modelType,
   multiple: true,
 })
@@ -41,14 +40,14 @@ const uploadProgress = ref(0)
 
 const onUpload = async () => {
   try {
-    const data = await handleUpload({
+    const { data: { images }} = await handleUpload({
       onUploadProgress: (progressEvent) => {
         uploadProgress.value = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-        emits('start')
+        emits('busy', true)
       }
     })
 
-    emits('update:modelValue', [...props.modelValue, ...data.images])
+    emits('update:modelValue', [...props.modelValue, ...images])
   } catch (error) {
     uploadProgress.value = 0
     console.log(error)

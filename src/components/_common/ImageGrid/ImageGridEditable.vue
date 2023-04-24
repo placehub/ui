@@ -2,7 +2,7 @@
   <div class="relative" ref="root">
     <Sortable :model-value="modelValue" @update:model-value="$emit('update:modelValue', $event)" class="grid grid-cols-4 gap-1">
       <div v-for="(image, index) in modelValue" :key="image.id" class="aspect-square drag-handle relative">
-        <img :src="image.url" alt="" :data-src="image.url" :data-id="image.id" class="w-full h-full object-cover rounded-lg">
+        <NuxtImg :src="image.url" :data-src="image.url" :data-id="image.id" width="120" height="120" alt="" class="w-full h-full object-cover rounded-lg" />
         <div class="absolute top-0 right-0 p-1">
           <button type="button" @click="onDelete(index)" class="rounded bg-black/50">
             <X class="w-5 h-5 text-white" />

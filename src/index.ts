@@ -9,7 +9,7 @@ export * from './components/places'
 export { default as usePageQuery } from './composables/usePageQuery.ts'
 export { default as usePopup } from './composables/usePopup.ts'
 export { default as useQuery } from './composables/useQuery.ts'
-export { default as useUpload } from './composables/useUpload.ts'
+export { default as useUpload } from './composables/useUpload'
 
 /////////////
 // PLUGINS //

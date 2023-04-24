@@ -1,15 +1,9 @@
+import axios, { AxiosInstance } from 'axios'
+import { Options, QueryOptions } from './intrefaces'
 import { shallowRef } from 'vue'
-import { useQuery } from '@placehub/ui'
+import { useNuxtApp } from 'nuxt/app'
 
-interface Options {
-  fields: string[]
-  modelType: string
-  multiple?: boolean
-}
-
-interface QueryOptions {
-  onUploadProgress?: Function
-}
+let axiosInstance: AxiosInstance
 
 const defaultOptions: Options = {
   fields: ['id', 'url'],
@@ -19,8 +13,21 @@ const defaultOptions: Options = {
 const isUploading = shallowRef(false)
 
 async function handleUpload(
-  options: QueryOptions = {}
+    options: QueryOptions = {}
 ): Promise<any> {
+  if (! axiosInstance) {
+    const {$auth, $config} = useNuxtApp()
+
+    axiosInstance = axios.create({
+      baseURL: $config.public.GRAPHQL_URL,
+      headers: {
+        Authorization: $auth.strategy.token.get(),
+      },
+      method: 'POST',
+    })
+  }
+
+
   return new Promise((resolve, reject) => {
     if (! defaultOptions.modelType) {
       reject(new Error('Передайте параметр modelType.'))
@@ -31,11 +38,7 @@ async function handleUpload(
       return
     }
 
-    let inputFile = document.createElement('input')
-
-    inputFile.accept   = 'image/*'
-    inputFile.multiple = defaultOptions.multiple
-    inputFile.type     = 'file'
+    const inputFile = createInputFile()
     inputFile.click()
 
     function onChange(event) {
@@ -71,18 +74,31 @@ async function handleUpload(
         images: ['variables.images'],
       }))
 
-      useQuery({ query: formData }, options)
-        .then((data) => resolve(data))
-        .catch((error) => reject(error))
-        .finally(() => {
-          isUploading.value = false
-        })
+      axiosInstance({
+        data: formData,
+        ...options
+      })
+      .then(({ data }) => resolve(data))
+      .catch((error) => reject(error))
+      .finally(() => {
+        isUploading.value = false
+      })
 
       inputFile.removeEventListener('change', onChange)
     }
 
     inputFile.addEventListener('change', onChange)
   })
+}
+
+function createInputFile(): HTMLInputElement {
+  const input = document.createElement('input')
+
+  input.accept    = 'image/*'
+  input.multiple  = true
+  input.type      = 'file'
+
+  return input
 }
 
 export default (options) => {
