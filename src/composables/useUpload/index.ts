@@ -5,16 +5,11 @@ import { useNuxtApp } from 'nuxt/app'
 
 let axiosInstance: AxiosInstance
 
-const defaultOptions: Options = {
-  fields: ['id', 'url'],
-  modelType: '',
-}
-
 const isUploading = shallowRef(false)
 
-async function handleUpload(
-    options: QueryOptions = {}
-): Promise<any> {
+let options = {mutation: '', variables: {}}
+
+async function handleUpload(axiosOptions: QueryOptions = {}): Promise<any> {
   if (! axiosInstance) {
     const {$auth, $config} = useNuxtApp()
 
@@ -27,12 +22,7 @@ async function handleUpload(
     })
   }
 
-
   return new Promise((resolve, reject) => {
-    if (! defaultOptions.modelType) {
-      reject(new Error('Передайте параметр modelType.'))
-    }
-
     if (isUploading.value) {
       reject('Я занят...')
       return
@@ -53,17 +43,9 @@ async function handleUpload(
       }
 
       formData.set('operations', JSON.stringify({
-        query: `
-          mutation upload($input: UploadInput!, $images: [Upload!]!) {
-            images: upload(input: $input, images: $images) {
-              ${defaultOptions.fields.join('\n')}
-            }
-          }
-        `,
+        query: options.mutation,
         variables: {
-          input: {
-            model_type: defaultOptions.modelType,
-          },
+          ...options.variables,
           images: new Array(files.length),
         }
       }))
@@ -76,7 +58,7 @@ async function handleUpload(
 
       axiosInstance({
         data: formData,
-        ...options
+        ...axiosOptions
       })
       .then(({ data }) => resolve(data))
       .catch((error) => reject(error))
@@ -101,8 +83,8 @@ function createInputFile(): HTMLInputElement {
   return input
 }
 
-export default (options) => {
-  Object.assign(defaultOptions, options)
+export default (newOptions: Options) => {
+  Object.assign(options, newOptions)
 
   return {
     handleUpload,

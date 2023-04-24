@@ -1,7 +1,7 @@
 interface Options {
-  fields: string[]
-  modelType: string
   multiple?: boolean
+  mutation: string
+  variables: object
 }
 
 interface QueryOptions {
