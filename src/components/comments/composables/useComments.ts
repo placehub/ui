@@ -35,6 +35,8 @@ function getComments({
       order_by,
       limit
     }
+  }, {
+    key: `comments-${page}`
   })
 }
 

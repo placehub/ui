@@ -1,42 +1,41 @@
-import axios from 'axios'
-import { useNuxtApp } from 'nuxt/app'
+import { useFetch, useNuxtApp } from 'nuxt/app'
 
-const useQuery = ({ query, variables = {} }, options = {}): Promise<any> => {
+interface Query {
+  query: string
+  variables?: object
+}
+
+const useQuery = async (
+  { query, variables = {} }: Query,
+  options = {}
+) => {
   const { $auth, $config } = useNuxtApp()
 
-  const instance = axios.create({
-    baseURL: $config.public.GRAPHQL_URL,
-    headers: {
-      Authorization : $auth.strategy.token.get()
+  options.method = 'POST'
+
+  const { data, refresh, pending } = await useFetch($config.public.GRAPHQL_URL, {
+    onRequest({ options }) {
+      options.headers = options.headers || {}
+      options.headers.Accept = 'application/json'
+      options.headers.Authorization = $auth.strategy.token.get()
     },
-    method: 'POST',
+    body: {
+      query: query.trim().replaceAll(/\s+/ig, ' '),
+      variables,
+    },
+    ...options,
+    key: btoa(encodeURIComponent(query)) // Уникальный ключ на основе запроса.
   })
 
-  let body
-
-  if (query instanceof FormData) {
-    body = query
-  } else {
-    body = {
-      query: query
-        .trim()
-        .replaceAll(/\s+/ig, ' '),
-      variables
-    }
+  if (data.value?.errors) {
+    throw data.value.errors
   }
 
-  return new Promise(async (resolve, reject) => {
-    const { data } = await instance({
-      data: body,
-      ...options
-    })
-
-    if (data.errors) {
-      reject(data.errors)
-    }
-
-    resolve(data.data)
-  })
+  return {
+    ...data.value,
+    refresh,
+    pending,
+  }
 }
 
 export default useQuery
