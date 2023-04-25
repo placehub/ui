@@ -1,7 +1,7 @@
 interface Options {
   multiple?: boolean
   mutation: string
-  variables: object
+  variables?: object
 }
 
 interface QueryOptions {

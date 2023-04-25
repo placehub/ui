@@ -2,6 +2,7 @@ export * from '@headlessui/vue'
 export * from './components/_common'
 export * from './components/comments'
 export * from './components/places'
+export * from './components/users'
 
 /////////////////
 // COMPOSABLES //
