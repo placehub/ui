@@ -17,7 +17,7 @@ export { default as useUpload } from './composables/useUpload'
 // PLUGINS //
 /////////////
 export { default as ToastifyPlugin } from './plugins/toastify'
-export { default as UI } from './plugins/ui'
+export { default as UiPlugin } from './plugins/ui'
 
 
 ///////////
