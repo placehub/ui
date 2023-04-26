@@ -1,19 +1,16 @@
+import { Query } from './interfaces'
+import { defineAsyncComponent } from 'vue'
 import { useFetch, useNuxtApp } from 'nuxt/app'
-
-interface Query {
-  query: string
-  variables?: object
-}
 
 const useQuery = async (
   { query, variables = {} }: Query,
   options = {}
 ) => {
-  const { $auth, $config } = useNuxtApp()
+  const { $auth, $config, vueApp } = useNuxtApp()
 
   options.method = 'POST'
 
-  // Уникальный ключ на основе запроса.
+  // Уникальный ключ на основе запроса, чтобы не передавать вручную
   let key = query
 
   if (Object.keys(variables).length) {
@@ -31,10 +28,18 @@ const useQuery = async (
       variables,
     },
     ...options,
-    key: btoa(encodeURIComponent(key))
+    key: btoa(encodeURIComponent(key)),
   })
 
   if (data.value?.errors) {
+    if (data.value.errors[0].message === 'Unauthenticated.') {
+      const {$overlay, $ui} = vueApp.config.globalProperties
+
+      if ($ui.authenticationDialog) {
+        $overlay.show($ui.authenticationDialog)
+      }
+    }
+
     throw data.value.errors
   }
 
