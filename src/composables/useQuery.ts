@@ -13,6 +13,13 @@ const useQuery = async (
 
   options.method = 'POST'
 
+  // Уникальный ключ на основе запроса.
+  let key = query
+
+  if (Object.keys(variables).length) {
+    key += JSON.stringify(variables)
+  }
+
   const { data, refresh, pending } = await useFetch($config.public.GRAPHQL_URL, {
     onRequest({ options }) {
       options.headers = options.headers || {}
@@ -24,7 +31,7 @@ const useQuery = async (
       variables,
     },
     ...options,
-    key: btoa(encodeURIComponent(query)) // Уникальный ключ на основе запроса.
+    key: btoa(encodeURIComponent(key))
   })
 
   if (data.value?.errors) {

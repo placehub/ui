@@ -53,15 +53,15 @@ const onClick = async () => {
   isLoading.value = true
 
   try {
-    const { likeDislike } = await useQuery({
+    const { data: { likeDislike }} = await useQuery({
       query: `
-        mutation($model_type: String!, $model_id: ID!) {
-          likeDislike(model_type: $model_type, model_id: $model_id)
+        mutation($modelType: String!, $modelId: ID!) {
+          likeDislike(modelType: $modelType, modelId: $modelId)
         }
       `,
       variables: {
-        model_type:  props.modelType,
-        model_id:    props.modelId,
+        modelType: props.modelType,
+        modelId:   props.modelId,
       }
     })
 
