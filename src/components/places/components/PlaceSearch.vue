@@ -2,7 +2,7 @@
   <Combobox v-model="selectedItems" @update:modelValue="onSelect">
     <div>
       <ComboboxInput
-          :displayValue="(place) => place?.[keyName]"
+          :displayValue="(place) => place.full_name"
           @input="onChange"
           autocomplete="off"
           class="input"
@@ -27,19 +27,17 @@
                 v-slot="{ selected, active }"
             >
               <div
-                  class="relative cursor-pointer select-none p-4"
+                  class="relative cursor-pointer select-none p-2"
                   :class="{
                   'bg-indigo-100': active,
                   'text-gray-900': !active,
                 }"
               >
-                <span
-                    class="block truncate"
-                    :class="{ 'font-medium': selected, 'font-normal': !selected }"
-                >
-                  {{ item[keyName] }}
+                <div class="truncate" :class="{ 'font-medium': selected, 'font-normal': !selected }">
+                  <div class="font-medium">{{ item[keyName] }}</div>
+                  <div class="text-sm text-gray-400">{{ item.parent_names }}</div>
                   <span v-if="item.id === null">(создать)</span>
-                </span>
+                </div>
               </div>
             </ComboboxOption>
           </ComboboxOptions>
@@ -85,7 +83,7 @@ const props = defineProps({
 
 let selectedItems = ref(props.modelValue)
 const items = ref([])
-const keyName = 'full_name'
+const keyName = 'name'
 const keyId = 'id'
 const input = ref(null)
 
