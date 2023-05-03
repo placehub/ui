@@ -24,20 +24,8 @@
         <ComboboxOptions
             class="absolute w-full left-0 top-full mt-2 max-h-60 overflow-auto rounded bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
         >
-          <ComboboxOption
-              v-for="item in items"
-              as="template"
-              :key="item[keyId]"
-              :value="item"
-              v-slot="{ selected, active }"
-          >
-            <div
-                class="relative cursor-pointer select-none p-2"
-                :class="{
-                  'bg-indigo-100': active,
-                  'text-gray-900': !active,
-                }"
-            >
+          <ComboboxOption v-for="item in items" as="template" :key="item[keyId]" :value="item" v-slot="{ selected, active }">
+            <div class="relative cursor-pointer select-none p-2" :class="{'bg-indigo-100': active, 'text-gray-900': !active}">
               <div class="truncate" :class="{ 'font-medium': selected, 'font-normal': !selected }">
                 <div class="font-medium">{{ item[keyName] }}</div>
                 <div class="text-sm text-gray-400">{{ item.parent_names }}</div>
@@ -84,7 +72,8 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  searchable: true
+  searchable: true,
+  placeholder: 'Введите название места'
 })
 
 let selectedItems = ref(props.modelValue)

@@ -19,29 +19,16 @@ export default {
       }
 
       stack.push(overlay)
-
-      if (stack.length > 0) {
-        document.body.style.overflow = 'hidden'
-
-        if (document.body.scrollHeight > window.innerHeight) {
-          document.body.style.paddingRight = '17px'
-        }
-      }
     }
 
     /**
      * @param all - скрыть все диалоги.
      */
-    const hide = async (all = false) => {
-      if (all) {
+    const hide = async (all: boolean) => {
+      if (all === true) {
         stack.length = 0
       } else {
         stack.splice(stack.length - 1, 1)
-      }
-
-      if (stack.length === 0) {
-        document.body.style.overflow = ''
-        document.body.style.paddingRight = ''
       }
 
       if (typeof attrs?.on?.hide === 'function') {
