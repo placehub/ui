@@ -1,7 +1,7 @@
 <template>
   <div>
     <Field :name="name" :rules="rules" v-slot="{ errorMessage }">
-      <label v-if="label" :for="name.replace('_', '-')" class="text-sm font-medium mb-2.5">
+      <label v-if="label" :for="name.replace('_', '-')" class="text-sm font-medium mb-1 inline-block">
         {{ label }}
         <span v-if="required" class="text-red-500 ml-1">*</span>
       </label>

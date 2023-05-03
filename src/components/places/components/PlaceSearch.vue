@@ -1,56 +1,61 @@
 <template>
-  <Combobox v-model="selectedItems" @update:modelValue="onSelect">
-    <div>
+  <Combobox v-model="selectedItems" @update:modelValue="onSelect" as="div">
+    <div class="relative">
       <ComboboxInput
-          :displayValue="(place) => place.full_name"
-          @input="onChange"
-          autocomplete="off"
-          class="input"
-          placeholder="Поиск места"
-          ref="input"
-      />
+        :displayValue="(place) => place?.full_name"
+        :placeholder="placeholder"
+        autocomplete="off"
+        class="input"
+        ref="input"
+        @input="onChange" />
+      <button v-if="clearable && modelValue?.name" @click="onClear" class="absolute top-0 right-0 h-full p-1 aspect-square">
+        <span class="transition-colors block text-indigo-200 h-full bg-indigo-50 hover:bg-indigo-100 hover:text-indigo-500 rounded flex items-center justify-center">
+          <X class="mx-auto" />
+        </span>
+      </button>
+    </div>
 
-      <div v-if="items.length" class="relative z-50">
-        <TransitionRoot
-            leave="transition ease-in duration-100"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
+    <div v-if="items.length" class="relative z-50">
+      <TransitionRoot
+          leave="transition ease-in duration-100"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+      >
+        <ComboboxOptions
+            class="absolute w-full left-0 top-full mt-2 max-h-60 overflow-auto rounded bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
         >
-          <ComboboxOptions
-              class="absolute w-full left-0 top-full mt-2 max-h-60 overflow-auto rounded bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+          <ComboboxOption
+              v-for="item in items"
+              as="template"
+              :key="item[keyId]"
+              :value="item"
+              v-slot="{ selected, active }"
           >
-            <ComboboxOption
-                v-for="item in items"
-                as="template"
-                :key="item[keyId]"
-                :value="item"
-                v-slot="{ selected, active }"
-            >
-              <div
-                  class="relative cursor-pointer select-none p-2"
-                  :class="{
+            <div
+                class="relative cursor-pointer select-none p-2"
+                :class="{
                   'bg-indigo-100': active,
                   'text-gray-900': !active,
                 }"
-              >
-                <div class="truncate" :class="{ 'font-medium': selected, 'font-normal': !selected }">
-                  <div class="font-medium">{{ item[keyName] }}</div>
-                  <div class="text-sm text-gray-400">{{ item.parent_names }}</div>
-                  <span v-if="item.id === null">(создать)</span>
-                </div>
+            >
+              <div class="truncate" :class="{ 'font-medium': selected, 'font-normal': !selected }">
+                <div class="font-medium">{{ item[keyName] }}</div>
+                <div class="text-sm text-gray-400">{{ item.parent_names }}</div>
+                <span v-if="item.id === null">(создать)</span>
               </div>
-            </ComboboxOption>
-          </ComboboxOptions>
-        </TransitionRoot>
-      </div>
+            </div>
+          </ComboboxOption>
+        </ComboboxOptions>
+      </TransitionRoot>
     </div>
   </Combobox>
 </template>
 
-<script setup>
-import { nextTick, ref } from 'vue'
-import { debounce } from 'lodash-es'
-import { useQuery } from '../../../index'
+<script setup lang="ts">
+import {nextTick, ref, withDefaults} from 'vue'
+import {debounce} from 'lodash-es'
+import {useQuery} from '../../../index'
+import { X } from 'lucide-vue-next'
 
 import {
   Combobox,
@@ -59,26 +64,27 @@ import {
   ComboboxOptions,
   TransitionRoot,
 } from '@headlessui/vue'
+import Button from '../../_common/Button/Button.vue';
 
 const emit = defineEmits([
   'update:modelValue'
 ])
 
-const props = defineProps({
-  modelValue: {
-    type: Object,
-  },
-  searchBy: {
-    type: Array,
-  },
-  clearAfterSelect: {
-    type: Boolean,
-    default: false
-  },
-  canCreate: {
-    type: Boolean,
-    default: false,
+interface Props {
+  modelValue?: object
+  clearAfterSelect?: boolean
+  creatable?: boolean
+  searchable?: boolean
+  clearable?: boolean
+  placeholder?: string
+  options?: {
+    searchBy?: 'country' | 'region' | 'locality' | 'poi',
+    parentId?: number | string
   }
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  searchable: true
 })
 
 let selectedItems = ref(props.modelValue)
@@ -92,6 +98,7 @@ const onSelect = async (place) => {
 
   if (props.clearAfterSelect) {
     await nextTick()
+
     selectedItems = ref({
       [keyId]: null,
       [keyName]: ''
@@ -101,15 +108,25 @@ const onSelect = async (place) => {
   }
 }
 
+const onClear = () => {
+  input.value.el.value = ''
+  items.value = []
+  emit('update:modelValue', {
+    [keyId]: null,
+    [keyName]: '',
+  })
+}
+
 const onChange = debounce(async (event) => {
   try {
     const query = event.target.value
 
     if (query.length > 0) {
-      const { data: {searchPlaces} } = await useQuery({
-        query: `
-          query ($query: String!, $search_by: [String]) {
-            searchPlaces(query: $query, search_by: $search_by) {
+      if (props.searchable) {
+        const {data: {searchPlaces}} = await useQuery({
+          query: `
+          query ($query: String!, $searchBy: String, $parentId: ID) {
+            searchPlaces(query: $query, searchBy: $searchBy, parentId: $parentId) {
               id
               name
               full_name
@@ -117,23 +134,29 @@ const onChange = debounce(async (event) => {
             }
           }
         `,
-        variables: {
-          query,
-          search_by: props.searchBy,
-        }
-      })
+          variables: {
+            query,
+            searchBy: props.options?.searchBy,
+            parentId: props.options?.parentId,
+          }
+        })
 
-      items.value = searchPlaces
+        items.value = searchPlaces
+      } else {
+        items.value = []
+      }
 
-      if (props.canCreate) {
+      if (props.creatable) {
         items.value.unshift({
           id: null,
-          full_name: query
+          name: query,
+          full_name: query,
         })
       }
     } else {
       items.value = []
     }
-  } catch (error) {}
+  } catch (error) {
+  }
 }, 250)
 </script>
