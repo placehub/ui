@@ -2,10 +2,10 @@
   <div v-show="count" class="grid grid-cols-12 fixed top-0 right-0 bottom-0 left-0 overflow-x-hidden overflow-y-scroll z-[9999]"
        tabindex="1">
     <TransitionGroup
-        enter-active-class="transition duration-150 ease-linear"
+        enter-active-class="transition duration-100 ease-linear"
         enter-from-class="-translate-y-8 opacity-0"
         enter-to-class="translate-y-0 opacity-100"
-        leave-active-class="transition duration-150 ease-linear"
+        leave-active-class="transition duration-100 ease-linear"
         leave-from-class="translate-y-0 opacity-100"
         leave-to-class="translate-y-8 opacity-0"
     >
@@ -21,17 +21,8 @@
       </Component>
     </TransitionGroup>
 
-    <Transition
-        enter-active-class="transition duration-50 ease-linear"
-        enter-from-class="opacity-0"
-        enter-to-class="opacity-100"
-        leave-active-class="transition-opacity duration-50 ease-linear"
-        leave-from-class="opacity-100"
-        leave-to-class="opacity-0"
-    >
-    <div v-show="count" class="fixed top-0 right-0 bottom-0 left-0 z-[1] bg-black/50 backdrop-blur-sm" :style="{zIndex: count - 1}"
+    <div class="fixed top-0 right-0 bottom-0 left-0 z-[1] bg-black/50 backdrop-blur-sm" :style="{zIndex: count - 1}"
          @click="overlay.hide"></div>
-    </Transition>
     </div>
 </template>
 
