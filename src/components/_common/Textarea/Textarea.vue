@@ -72,7 +72,7 @@ watch(() => props.modelValue, (newValue) => {
 })
 
 const textareaStyles = computed(() => {
-  const classes = 'border border-indigo-100 focus:ring-indigo-100 focus:border-indigo-200 rounded-lg p-2 focus:outline-none focus:ring-4 disabled:opacity-75 transition duration-100 ease-in-out'
+  const classes = 'border border-indigo-100 focus:ring-indigo-100 focus:border-indigo-200 rounded-lg px-2 focus:outline-none focus:ring-4 disabled:opacity-75 transition duration-100 ease-in-out min-h-[44px] py-2.5'
 
   return !props.withoutStyles ? classes : ''
 })

@@ -1,5 +1,5 @@
 .input {
-  @apply px-2 h-[42px] border border-indigo-100 relative w-full rounded text-sm disabled:opacity-75 transition duration-100 ease-in-out focus:ring-indigo-100 focus:border-indigo-300 focus:outline-none focus:ring-4;
+  @apply px-2 h-[44px] border border-indigo-100 relative w-full rounded-lg text-sm disabled:opacity-75 transition duration-100 ease-in-out focus:ring-indigo-100 focus:border-indigo-300 focus:outline-none focus:ring-4;
 }
 
 .input--prepend {
