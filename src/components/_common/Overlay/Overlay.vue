@@ -1,37 +1,38 @@
 <template>
-  <Transition
-      enter-active-class="transition duration-100 ease-linear"
-      enter-from-class="opacity-0"
-      enter-to-class="opacity-100"
-      leave-active-class="transition-opacity duration-100 ease-linear"
-      leave-from-class="opacity-100"
-      leave-to-class="opacity-0"
-  >
-    <div v-show="count" class="grid grid-cols-12 fixed top-0 right-0 bottom-0 left-0 overflow-hidden z-[9999]"
-         tabindex="1">
-      <TransitionGroup
-          enter-active-class="transition duration-100 ease-out"
-          enter-from-class="translate-y-4 opacity-0"
-          enter-to-class="translate-y-0 opacity-100"
-          leave-active-class="transition duration-100 ease-in"
-          leave-from-class="translate-y-0 opacity-100"
-          leave-to-class="translate-y-4 opacity-0"
-      >
-        <Component
-          v-bind="overlay.props"
-          v-for="(overlay, index) in overlay.stack"
-          v-on="overlay.on"
-          role="dialog"
-          class="absolute"
-          :is="overlay.component"
-          :key="overlay.key"
-          :style="{ zIndex: index + 1 }">
-        </Component>
-      </TransitionGroup>
-      <div class="fixed top-0 right-0 bottom-0 left-0 z-[1] bg-black/50" :style="{zIndex: count - 1}"
-           @click="overlay.hide"></div>
+  <div v-show="count" class="grid grid-cols-12 fixed top-0 right-0 bottom-0 left-0 overflow-x-hidden overflow-y-scroll z-[9999]"
+       tabindex="1">
+    <TransitionGroup
+        enter-active-class="transition duration-150 ease-linear"
+        enter-from-class="-translate-y-8 opacity-0"
+        enter-to-class="translate-y-0 opacity-100"
+        leave-active-class="transition duration-150 ease-linear"
+        leave-from-class="translate-y-0 opacity-100"
+        leave-to-class="translate-y-8 opacity-0"
+    >
+      <Component
+        v-bind="overlay.props"
+        v-for="(overlay, index) in overlay.stack"
+        v-on="overlay.on"
+        role="dialog"
+        class="absolute"
+        :is="overlay.component"
+        :key="overlay.key"
+        :style="{ zIndex: index + 1 }">
+      </Component>
+    </TransitionGroup>
+
+    <Transition
+        enter-active-class="transition duration-50 ease-linear"
+        enter-from-class="opacity-0"
+        enter-to-class="opacity-100"
+        leave-active-class="transition-opacity duration-50 ease-linear"
+        leave-from-class="opacity-100"
+        leave-to-class="opacity-0"
+    >
+    <div v-show="count" class="fixed top-0 right-0 bottom-0 left-0 z-[1] bg-black/50 backdrop-blur-sm" :style="{zIndex: count - 1}"
+         @click="overlay.hide"></div>
+    </Transition>
     </div>
-  </Transition>
 </template>
 
 <script setup>
