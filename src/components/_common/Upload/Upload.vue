@@ -8,7 +8,7 @@
 <script setup>
 import { useQuery } from '../../../index'
 import { shallowRef } from 'vue'
-import { throttle } from 'lodash'
+import { throttle } from 'lodash-es'
 
 const emit = defineEmits([
   'update:modelValue',
