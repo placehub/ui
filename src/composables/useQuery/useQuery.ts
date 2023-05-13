@@ -31,9 +31,9 @@ const useQuery = async (
   })
 
   if (data.value?.errors) {
-    if (options.page === false) {
+    if (!options?.page) {
       if (data.value.errors[0].message === 'Unauthenticated.') {
-        const {$overlay, $ui} = vueApp.config.globalProperties
+        const { $overlay, $ui } = vueApp.config.globalProperties
 
         if ($ui.authenticationDialog) {
           $overlay.show($ui.authenticationDialog)
