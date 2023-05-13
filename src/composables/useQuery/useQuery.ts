@@ -1,5 +1,4 @@
 import { Query } from './interfaces'
-import { defineAsyncComponent } from 'vue'
 import { useFetch, useNuxtApp } from 'nuxt/app'
 
 const useQuery = async (
@@ -21,7 +20,7 @@ const useQuery = async (
     onRequest({ options }) {
       options.headers = options.headers || {}
       options.headers.Accept = 'application/json'
-      options.headers.Authorization = $auth.strategy.token.get()
+      options.headers.Authorization = $auth?.strategy?.token?.get()
     },
     body: {
       query: query.trim().replaceAll(/\s+/ig, ' '),
@@ -32,11 +31,13 @@ const useQuery = async (
   })
 
   if (data.value?.errors) {
-    if (data.value.errors[0].message === 'Unauthenticated.') {
-      const { $overlay, $ui } = vueApp.config.globalProperties
+    if (options.page === false) {
+      if (data.value.errors[0].message === 'Unauthenticated.') {
+        const {$overlay, $ui} = vueApp.config.globalProperties
 
-      if ($ui.authenticationDialog) {
-        $overlay.show($ui.authenticationDialog)
+        if ($ui.authenticationDialog) {
+          $overlay.show($ui.authenticationDialog)
+        }
       }
     }
 

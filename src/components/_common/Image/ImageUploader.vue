@@ -18,7 +18,9 @@
         </div>
       </div>
     </div>
-    <div ref="trigger" @click="onUpload"></div>
+    <div ref="trigger" @click="onUpload">
+      <slot />
+    </div>
   </div>
 </template>
 

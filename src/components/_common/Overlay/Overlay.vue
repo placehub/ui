@@ -14,7 +14,7 @@
         v-for="(overlay, index) in overlay.stack"
         v-on="overlay.on"
         role="dialog"
-        class="absolute"
+        class="absolute m-4"
         :is="overlay.component"
         :key="overlay.key"
         :style="{ zIndex: index + 1 }">
