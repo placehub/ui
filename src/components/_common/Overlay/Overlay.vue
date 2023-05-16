@@ -1,29 +1,31 @@
 <template>
-  <div v-show="count" class="grid grid-cols-12 fixed top-0 right-0 bottom-0 left-0 overflow-x-hidden overflow-y-scroll z-[9999]"
+  <div v-show="count" class="fixed top-0 right-0 bottom-0 left-0 overflow-hidden z-[9999]"
        tabindex="1">
     <TransitionGroup
         enter-active-class="transition duration-100 ease-linear"
-        enter-from-class="-translate-y-8 opacity-0"
+        enter-from-class="translate-y-8 opacity-0"
         enter-to-class="translate-y-0 opacity-100"
         leave-active-class="transition duration-100 ease-linear"
         leave-from-class="translate-y-0 opacity-100"
-        leave-to-class="translate-y-8 opacity-0"
+        leave-to-class="-translate-y-8 opacity-0"
     >
       <Component
-        v-bind="overlay.props"
-        v-for="(overlay, index) in overlay.stack"
-        v-on="overlay.on"
-        role="dialog"
-        class="absolute m-4"
-        :is="overlay.component"
-        :key="overlay.key"
-        :style="{ zIndex: index + 1 }">
+          v-bind="overlay.props"
+          v-for="(overlay, index) in overlay.stack"
+          v-on="overlay.on"
+          role="dialog"
+          tabindex="-1"
+          aria-hidden="true"
+          :is="overlay.component"
+          :key="overlay.key"
+          @click="onClick"
+          :style="{ zIndex: index + 1 }">
       </Component>
     </TransitionGroup>
 
-    <div class="fixed top-0 right-0 bottom-0 left-0 z-[1] bg-black/50 backdrop-blur-sm" :style="{zIndex: count - 1}"
-         @click="overlay.hide"></div>
-    </div>
+    <div class="fixed top-0 right-0 bottom-0 left-0 z-[1] bg-black/50 backdrop-blur-sm"
+         :style="{zIndex: count - 1}"></div>
+  </div>
 </template>
 
 <script setup>
@@ -43,6 +45,12 @@ watch(count, (newValue) => {
 
 const onKeydown = (event) => {
   if (overlay.stack.length && event.key === 'Escape') {
+    overlay.hide()
+  }
+}
+
+const onClick = ({ target }) => {
+  if (target.role === 'dialog') {
     overlay.hide()
   }
 }
