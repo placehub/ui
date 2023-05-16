@@ -1,21 +1,19 @@
 <template>
-  <div class="textarea">
-    <textarea
-      ref="textarea"
-      :aria-label="label"
-      :disabled="disabled"
-      :name="name"
-      :placeholder="placeholder"
-      :required="required"
-      :rows="rows"
-      :class="textareaStyles"
-      :maxlength="maxlength"
-      v-model="input"
-      @input="$emit('update:modelValue', $event.target.value)"
-      @focus="$emit('focus')"
-      @blur="$emit('blur')"
-    />
-  </div>
+  <textarea
+    ref="textarea"
+    :aria-label="label"
+    :disabled="disabled"
+    :name="name"
+    :placeholder="placeholder"
+    :required="required"
+    :rows="rows"
+    :class="textareaStyles"
+    :maxlength="maxlength"
+    v-model="input"
+    @input="$emit('update:modelValue', $event.target.value)"
+    @focus="$emit('focus', true)"
+    @blur="$emit('focus', false)"
+  />
 </template>
 
 
@@ -23,7 +21,7 @@
 import { useTextareaAutosize } from '@vueuse/core'
 import { computed, watch } from 'vue'
 
-defineEmits(['update:modelValue', 'focus', 'blur'])
+defineEmits(['update:modelValue', 'focus'])
 
 const props = defineProps({
   modelValue: {
@@ -78,10 +76,8 @@ const textareaStyles = computed(() => {
 })
 </script>
 
-<style lang="scss">
-.textarea {
-  textarea {
-    @apply resize-none text-sm w-full outline-none leading-relaxed overflow-hidden;
-  }
+<style lang="scss" scoped>
+textarea {
+  @apply block resize-none text-sm w-full outline-none leading-relaxed overflow-hidden;
 }
 </style>
