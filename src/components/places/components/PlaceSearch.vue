@@ -107,6 +107,8 @@ const onChange = debounce(async (event) => {
               name
               full_name
               parent_names
+              lat
+              lng
             }
           }
         `,
