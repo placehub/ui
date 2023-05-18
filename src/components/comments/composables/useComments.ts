@@ -9,7 +9,7 @@ interface Options {
 
 interface Variables {
   page?: number
-  order_by?: 'popular',
+  order_by?: 'popular' | undefined,
   limit?: number
 }
 
@@ -33,10 +33,8 @@ function getComments({
       post_id,
       page,
       order_by,
-      limit
-    }
-  }, {
-    key: `comments-${page}`
+      limit,
+    },
   })
 }
 

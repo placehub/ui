@@ -23,7 +23,7 @@
           >
             <swiper-slide v-for="image in images" :key="image.id" class="flex items-center justify-center">
               <div class="swiper-zoom-container">
-                <img :data-src="image.src" :src="image.src" :alt="image.src" class="swiper-lazy" loading="lazy" />
+                <NuxtImg :data-src="image.src" :src="image.src" :alt="image.src" class="swiper-lazy" loading="lazy" />
               </div>
             </swiper-slide>
           </swiper>
