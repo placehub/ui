@@ -9,7 +9,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@floating-ui/dom": "^1.2.6",
+    "@floating-ui/dom": "^1.2.8",
     "@headlessui/vue": "^1.7.13",
     "@shopify/draggable": "^1.0.0-beta.8",
     "@tiptap/core": "^2.0.3",
@@ -23,19 +23,19 @@
     "@tiptap/extension-typography": "^2.0.3",
     "@tiptap/pm": "^2.0.3",
     "@tiptap/vue-3": "^2.0.3",
-    "@vueuse/core": "10.0.0",
-    "axios": "^1.3.5",
+    "@vueuse/core": "10.1.2",
+    "axios": "^1.4.0",
     "lodash-es": "^4.17.21",
-    "lucide-vue-next": "^0.144.0",
-    "nuxt": "^3.4.1",
-    "pinia": "^2.0.35",
-    "swiper": "^9.2.1",
-    "vee-validate": "^4.8.4",
-    "vue": "^3.2.47",
-    "vue3-toastify": "^0.1.6"
+    "lucide-vue-next": "^0.220.0",
+    "nuxt": "3.4.3",
+    "pinia": "^2.1.3",
+    "swiper": "^9.3.2",
+    "vee-validate": "^4.9.4",
+    "vue": "3.2.47",
+    "vue3-toastify": "^0.1.9"
   },
   "devDependencies": {
-    "@nuxt/image-edge": "^1.0.0-28020728.5df24eb",
+    "@nuxt/image-edge": "^1.0.0-28059208.2abef1b",
     "@types/lodash-es": "^4.17.7"
   }
 }
