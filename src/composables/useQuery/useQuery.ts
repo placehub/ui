@@ -9,7 +9,7 @@ const useQuery = async (
 
   options.method = 'POST'
 
-  // Уникальный ключ на основе запроса, чтобы не передавать вручную
+  // Уникальный ключ на основе запроса
   let key = query
 
   if (Object.keys(variables).length) {

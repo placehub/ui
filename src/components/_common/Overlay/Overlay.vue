@@ -50,7 +50,7 @@ const onKeydown = (event) => {
 }
 
 const onClick = ({ target }) => {
-  if (target.role === 'dialog') {
+  if (target.getAttribute('role') === 'dialog') {
     overlay.hide()
   }
 }
