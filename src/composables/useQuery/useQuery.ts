@@ -1,5 +1,5 @@
 import { Query } from './interfaces'
-import { useFetch, useNuxtApp } from 'nuxt/app'
+import { useNuxtApp, useAsyncData } from 'nuxt/app'
 
 const useQuery = async (
   { query, variables = {} }: Query,
@@ -16,19 +16,23 @@ const useQuery = async (
     key += JSON.stringify(variables)
   }
 
-  const { data, refresh, pending } = await useFetch($config.public.GRAPHQL_URL, {
-    onRequest({ options }) {
-      options.headers = options.headers || {}
-      options.headers.Accept = 'application/json'
-      options.headers.Authorization = $auth?.strategy?.token?.get()
-    },
-    body: {
-      query: query.trim().replaceAll(/\s+/ig, ' '),
-      variables,
-    },
-    ...options,
-    key: btoa(encodeURIComponent(key)),
-  })
+  key = btoa(encodeURIComponent(key))
+
+  const { data, pending, error, refresh } = await useAsyncData(
+    key,
+    () => $fetch($config.public.GRAPHQL_URL, {
+      onRequest({ options }) {
+        options.headers = options.headers || {}
+        options.headers.Accept = 'application/json'
+        options.headers.Authorization = $auth?.strategy?.token?.get()
+      },
+      body: {
+        query: query.trim().replaceAll(/\s+/ig, ' '),
+        variables,
+      },
+      ...options,
+    }),
+  )
 
   if (data.value?.errors) {
     if (!options?.page) {
@@ -46,8 +50,9 @@ const useQuery = async (
 
   return {
     ...data.value,
-    refresh,
     pending,
+    error,
+    refresh,
   }
 }
 
