@@ -14,11 +14,13 @@ const props = defineProps({
   },
 })
 
-const { setErrors } = useForm()
+const { resetForm, setErrors } = useForm()
 
 const isLoading = shallowRef(false)
 
 const onSubmit = async () => {
+  resetForm()
+
   try {
     if (isLoading.value) return
 
