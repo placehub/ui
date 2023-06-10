@@ -8,8 +8,8 @@
         class="input"
         ref="input"
         @input="onChange" />
-      <button v-if="clearable && modelValue?.name" @click="onClear" class="absolute top-0 right-0 h-full p-1 aspect-square">
-        <span class="transition-colors block text-indigo-200 h-full bg-indigo-50 hover:bg-indigo-100 hover:text-indigo-500 rounded flex items-center justify-center">
+      <button v-if="clearable && modelValue?.name" @click="onClear" class="absolute top-0 right-0 h-full p-2 aspect-square">
+        <span class="transition-colors block text-indigo-400 hover:text-indigo-600 h-full bg-indigo-100/80 hover:bg-indigo-200/80 rounded flex items-center justify-center">
           <X class="mx-auto" />
         </span>
       </button>

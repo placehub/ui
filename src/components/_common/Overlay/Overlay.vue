@@ -10,16 +10,16 @@
         leave-to-class="-translate-y-8 opacity-0"
     >
       <Component
-          v-bind="overlay.props"
           v-for="(overlay, index) in overlay.stack"
+          v-bind="overlay.props"
           v-on="overlay.on"
           role="dialog"
           tabindex="-1"
           aria-hidden="true"
           :is="overlay.component"
           :key="overlay.key"
-          @click="onClick"
-          :style="{ zIndex: index + 1 }">
+          :style="{ zIndex: index + 1 }"
+          @click="onClick">
       </Component>
     </TransitionGroup>
 

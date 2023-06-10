@@ -5,11 +5,7 @@ export default {
     let stack = reactive([])
     let attrs = {}
 
-    const show = (component, attributes = {on: {}, props: {}}) => {
-      if (! attributes?.on) {
-        attributes.on = {};
-      }
-
+    const show = (component, attributes: object = {}) => {
       attrs = attributes
 
       const overlay = {
